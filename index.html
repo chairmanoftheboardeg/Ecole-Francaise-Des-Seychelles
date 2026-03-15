@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecole Française des Seychelles</title>
+    
+    <link rel="icon" href="https://jobo.sc/wp-content/uploads/2019/08/EFS_Logo_270px-200x200.png" type="image/png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* --- BRAND VARIABLES --- */
+        :root {
+            --efs-blue: #003366; 
+            --efs-red: #cc0000;
+            --efs-light-blue: #e6f0fa;
+            --bg-white: #ffffff;
+            --text-dark: #1a202c;
+            --text-muted: #718096;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; color: var(--efs-blue); }
+
+        /* --- LOADER --- */
+        #loader {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: var(--bg-white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+        }
+        .spinner {
+            width: 50px; height: 50px;
+            border: 5px solid var(--efs-light-blue);
+            border-top-color: var(--efs-red);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 51, 102, 0.08);
+        }
+
+        .logo img { height: 60px; transition: transform 0.3s ease; }
+        .logo:hover img { transform: scale(1.05); }
+
+        .nav-links { list-style: none; display: flex; gap: 2rem; align-items: center; }
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--efs-red); }
+
+        .nav-actions { display: flex; align-items: center; gap: 1rem; }
+
+        .btn-pronote {
+            background: var(--efs-blue); color: var(--bg-white);
+            padding: 0.6rem 1.5rem; border-radius: 4px;
+            text-decoration: none; font-weight: 700; transition: all 0.3s;
+        }
+        .btn-pronote:hover { background: var(--efs-red); transform: translateY(-2px); }
+
+        .btn-lang {
+            background: none; border: 2px solid var(--efs-blue);
+            color: var(--efs-blue); padding: 0.4rem 0.8rem;
+            border-radius: 4px; font-weight: 700; cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-lang:hover { background: var(--efs-blue); color: var(--bg-white); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            height: 85vh;
+            background-image: linear-gradient(rgba(0, 51, 102, 0.7), rgba(0, 51, 102, 0.7)), url('https://i.ibb.co/60qf9HKH/474130526-3888939071365943-2956930514729232914-n.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 5%;
+            margin-top: 80px; /* Offset for navbar */
+        }
+
+        .hero-content { max-width: 900px; color: var(--bg-white); }
+        .hero h1 {
+            color: var(--bg-white); font-size: 4rem;
+            margin-bottom: 1.5rem; line-height: 1.2;
+            animation: fadeInUp 1s ease-out;
+        }
+        .hero p {
+            font-size: 1.25rem; margin-bottom: 2.5rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero-btns { animation: fadeInUp 1s ease-out 0.4s both; }
+        .btn-primary {
+            background: var(--efs-red); color: var(--bg-white);
+            padding: 1rem 2.5rem; border-radius: 4px;
+            text-decoration: none; font-weight: 700; font-size: 1.1rem;
+            transition: all 0.3s; display: inline-block;
+        }
+        .btn-primary:hover { background: #a30000; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(204, 0, 0, 0.3); }
+
+        /* --- QUICK PORTALS GRID --- */
+        .portals-section { padding: 5rem 5%; background: var(--bg-white); margin-top: -60px; position: relative; z-index: 10; }
+        .portals-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+        .portal-card {
+            background: var(--bg-white); padding: 2.5rem 1.5rem;
+            text-align: center; border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--efs-blue);
+            transition: all 0.3s ease; text-decoration: none; color: var(--text-dark);
+            display: block;
+        }
+        .portal-card:hover { transform: translateY(-10px); border-top-color: var(--efs-red); }
+        .portal-icon { font-size: 2.5rem; color: var(--efs-blue); margin-bottom: 1rem; transition: color 0.3s; }
+        .portal-card:hover .portal-icon { color: var(--efs-red); }
+        .portal-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; font-family: 'Inter', sans-serif;}
+        .portal-card p { font-size: 0.9rem; color: var(--text-muted); }
+
+        /* --- LIVE NEWSROOM (SUPABASE FETCH) --- */
+        .news-section { padding: 6rem 5%; background: var(--efs-light-blue); }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-header h2 { font-size: 2.8rem; margin-bottom: 1rem; }
+        
+        .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; max-width: 1200px; margin: 0 auto; }
+        .news-card {
+            background: var(--bg-white); border-radius: 8px; overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: all 0.3s ease;
+        }
+        .news-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .news-img { width: 100%; height: 200px; object-fit: cover; background: #e2e8f0; }
+        .news-content { padding: 1.5rem; }
+        .news-date { font-size: 0.85rem; color: var(--efs-red); font-weight: 700; margin-bottom: 0.5rem; display: block; }
+        .news-title { font-size: 1.25rem; margin-bottom: 1rem; font-family: 'Inter', sans-serif; color: var(--text-dark); }
+        .news-author { font-size: 0.85rem; color: var(--text-muted); font-style: italic; border-top: 1px solid #e2e8f0; padding-top: 1rem; margin-top: 1rem; }
+        
+        /* Loading/Empty State for News */
+        .news-status { text-align: center; grid-column: 1 / -1; color: var(--text-muted); font-size: 1.1rem; padding: 2rem; }
+
+        /* --- FOOTER --- */
+        .site-footer { background-color: var(--efs-blue); color: var(--bg-white); padding: 4rem 5% 2rem; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; max-width: 1200px; margin: 0 auto 3rem; }
+        .footer-logo img { height: 80px; margin-bottom: 1.5rem; background: var(--bg-white); padding: 10px; border-radius: 8px;}
+        .footer-links h4 { color: var(--bg-white); margin-bottom: 1.5rem; font-family: 'Inter', sans-serif; font-size: 1.1rem; }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 0.8rem; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--bg-white); }
+        
+        /* Tyler Nicholas Attribution */
+        .footer-bottom {
+            text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6); font-size: 0.9rem;
+        }
+        .creator-link { color: var(--bg-white); font-weight: 700; text-decoration: none; transition: color 0.3s; }
+        .creator-link:hover { color: var(--efs-red); }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.8rem; }
+            .portals-grid, .news-grid, .footer-grid { grid-template-columns: 1fr; }
+            .portals-section { margin-top: 0; padding-top: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader"><div class="spinner"></div></div>
+
+    <nav class="navbar">
+        <a href="/" class="logo"><img src="https://jobo.sc/wp-content/uploads/2019/08/EFS_Logo_270px-200x200.png" alt="EFS Logo"></a>
+        <ul class="nav-links">
+            <li><a href="/about/" data-en="About Us" data-fr="À Propos">About Us</a></li>
+            <li><a href="/academics/" data-en="Academics" data-fr="Scolarité">Academics</a></li>
+            <li><a href="/admissions/" data-en="Admissions" data-fr="Inscriptions">Admissions</a></li>
+            <li><a href="/careers/" data-en="Careers" data-fr="Recrutement">Careers</a></li>
+            <li><a href="/contact/" data-en="Contact" data-fr="Contact">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button id="langToggle" class="btn-lang">FR</button>
+            <a href="https://www.index-education.com/fr/pronote-info.php" target="_blank" class="btn-pronote">Pronote</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1 data-en="Excellence in International Education" data-fr="L'Excellence de l'Éducation Internationale">Excellence in International Education</h1>
+            <p data-en="Welcome to Ecole Française des Seychelles. Nurturing global citizens from kindergarten through high school." data-fr="Bienvenue à l'École Française des Seychelles. Former des citoyens du monde de la maternelle au lycée.">Welcome to Ecole Française des Seychelles. Nurturing global citizens from kindergarten through high school.</p>
+            <div class="hero-btns">
+                <a href="/admissions/" class="btn-primary" data-en="Discover Admissions" data-fr="Découvrir les Inscriptions">Discover Admissions</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="portals-section">
+        <div class="portals-grid">
+            <a href="/documents/" class="portal-card">
+                <div class="portal-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                <h3 data-en="Official Documents" data-fr="Documents Officiels">Official Documents</h3>
+                <p data-en="School supplies, rules, and forms." data-fr="Fournitures scolaires, règlement et formulaires.">School supplies, rules, and forms.</p>
+            </a>
+            <a href="/calendar/" class="portal-card">
+                <div class="portal-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                <h3 data-en="School Calendar" data-fr="Calendrier Scolaire">School Calendar</h3>
+                <p data-en="Term dates and upcoming events." data-fr="Dates des trimestres et événements.">Term dates and upcoming events.</p>
+            </a>
+            <a href="/activities/" class="portal-card">
+                <div class="portal-icon"><i class="fa-solid fa-table-tennis-paddle-ball"></i></div>
+                <h3 data-en="Extracurriculars" data-fr="Activités Extrascolaires">Extracurriculars</h3>
+                <p data-en="After-school clubs and sports." data-fr="Clubs et sports après l'école.">After-school clubs and sports.</p>
+            </a>
+            <a href="/admissions/" class="portal-card">
+                <div class="portal-icon"><i class="fa-solid fa-shirt"></i></div>
+                <h3 data-en="School Uniforms" data-fr="Uniformes Scolaires">School Uniforms</h3>
+                <p data-en="Pricing and purchase locations." data-fr="Tarifs et points de vente.">Pricing and purchase locations.</p>
+            </a>
+        </div>
+    </section>
+
+    <section class="news-section">
+        <div class="section-header">
+            <h2 data-en="Latest News & Announcements" data-fr="Dernières Actualités">Latest News & Announcements</h2>
+        </div>
+        <div class="news-grid" id="news-container">
+            <div class="news-status"><i class="fa-solid fa-circle-notch fa-spin"></i> Loading latest updates from the school administration...</div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-logo"><img src="https://jobo.sc/wp-content/uploads/2019/08/EFS_Logo_270px-200x200.png" alt="EFS Logo"></div>
+                <p data-en="Ecole Française des Seychelles. An official partner of the AEFE network, providing premium French education." data-fr="École Française des Seychelles. Partenaire officiel du réseau AEFE, offrant un enseignement français de qualité.">Ecole Française des Seychelles. An official partner of the AEFE network, providing premium French education.</p>
+            </div>
+            <div class="footer-links">
+                <h4 data-en="Quick Links" data-fr="Liens Rapides">Quick Links</h4>
+                <ul>
+                    <li><a href="/about/" data-en="The Establishment" data-fr="L'Établissement">The Establishment</a></li>
+                    <li><a href="/exams/" data-en="Exams (BAC/Brevet)" data-fr="Examens (BAC/Brevet)">Exams (BAC/Brevet)</a></li>
+                    <li><a href="/orientation/" data-en="Orientation & Alumni" data-fr="Orientation & Anciens">Orientation & Alumni</a></li>
+                    <li><a href="/admin/" data-en="Staff Login" data-fr="Accès Personnel">Staff Login</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4 data-en="Contact Us" data-fr="Nous Contacter">Contact Us</h4>
+                <ul>
+                    <li><i class="fa-solid fa-location-dot"></i> Victoria, Mahé, Seychelles</li>
+                    <li><a href="/contact/" data-en="Who to Contact Directory" data-fr="Annuaire des Contacts">Who to Contact Directory</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Ecole Française des Seychelles. <span data-en="All rights reserved." data-fr="Tous droits réservés.">All rights reserved.</span><br>
+            <span style="font-size: 0.8rem; margin-top: 10px; display: block;">Made by <a href="https://tyler.tylernicholasgroup.com" target="_blank" class="creator-link">Tyler Nicholas</a></span>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Loader Logic
+        window.addEventListener("load", () => {
+            setTimeout(() => {
+                document.getElementById("loader").style.opacity = "0";
+                setTimeout(() => document.getElementById("loader").style.visibility = "hidden", 600);
+            }, 500);
+        });
+
+        // 2. Cookie & Translation Logic
+        function getCookie(name) {
+            let matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
+            return matches ? decodeURIComponent(matches[1]) : undefined;
+        }
+
+        const translatableElements = document.querySelectorAll('[data-en][data-fr]');
+        const langToggleBtn = document.getElementById('langToggle');
+        
+        // Default to English if no cookie
+        let currentLang = getCookie('efs_lang') || 'en';
+
+        function applyLanguage(lang) {
+            currentLang = lang;
+            document.cookie = `efs_lang=${lang}; path=/; max-age=31536000`; // Save for 1 year
+            
+            // Update button text to show the *other* language option
+            langToggleBtn.innerText = lang === 'en' ? 'FR' : 'EN';
+            
+            // Swap text for all elements
+            translatableElements.forEach(el => {
+                el.innerText = el.getAttribute(`data-${lang}`);
+            });
+        }
+
+        // Apply on initial load
+        applyLanguage(currentLang);
+
+        // Toggle on click
+        langToggleBtn.addEventListener('click', () => {
+            applyLanguage(currentLang === 'en' ? 'fr' : 'en');
+        });
+
+
+        // 3. Supabase Live Fetch Logic
+        const SUPABASE_URL = 'https://lnajsjbmprslzochnmum.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxuYWpzamJtcHJzbHpvY2hubXVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1OTUxMzEsImV4cCI6MjA4OTE3MTEzMX0.OWFouBb5MRbcaXtrbtyiQqIv4tdTx4PdAIfvCB62RaY';
+        
+        async function fetchLatestNews() {
+            const container = document.getElementById('news-container');
+            
+            try {
+                // Fetch the 3 most recent published articles
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/efs_news?select=*&is_published=eq.true&order=created_at.desc&limit=3`, {
+                    method: 'GET',
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) throw new Error('Network response was not ok');
+                
+                const data = await response.json();
+
+                if (data.length === 0) {
+                    container.innerHTML = `<div class="news-status" data-en="No recent announcements. Check back soon." data-fr="Aucune annonce récente. Revenez bientôt.">${currentLang === 'en' ? 'No recent announcements. Check back soon.' : 'Aucune annonce récente. Revenez bientôt.'}</div>`;
+                    return;
+                }
+
+                container.innerHTML = ''; // Clear loading spinner
+
+                data.forEach(news => {
+                    // Format date
+                    const dateObj = new Date(news.created_at);
+                    const dateStr = dateObj.toLocaleDateString(currentLang === 'en' ? 'en-US' : 'fr-FR', { month: 'short', day: 'numeric', year: 'numeric' });
+                    
+                    // Fallback image if none provided
+                    const imgUrl = news.image_url || 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop';
+
+                    const card = `
+                        <article class="news-card">
+                            <img src="${imgUrl}" alt="News Image" class="news-img">
+                            <div class="news-content">
+                                <span class="news-date">${dateStr}</span>
+                                <h3 class="news-title">${news.title}</h3>
+                                <p style="font-size: 0.95rem; color: #718096; margin-bottom: 1rem;">${news.content.substring(0, 100)}...</p>
+                                <div class="news-author"><i class="fa-solid fa-pen-nib"></i> ${news.author_signature}</div>
+                            </div>
+                        </article>
+                    `;
+                    container.innerHTML += card;
+                });
+
+            } catch (error) {
+                console.error("Supabase Fetch Error:", error);
+                container.innerHTML = `<div class="news-status" style="color: var(--efs-red);"><i class="fa-solid fa-triangle-exclamation"></i> Unable to load the news feed at this time.</div>`;
+            }
+        }
+
+        // Trigger fetch after loader finishes to ensure smooth rendering
+        setTimeout(fetchLatestNews, 600);
+    </script>
+</body>
+</html>

@@ -19,6 +19,7 @@
             --bg-white: #ffffff;
             --text-dark: #1a202c;
             --text-muted: #718096;
+            --border-color: #e2e8f0;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -73,15 +74,15 @@
 
         .nav-links { list-style: none; display: flex; gap: 2rem; align-items: center; }
         .nav-links a {
-            color: var(--text-dark);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 600;
-            transition: color 0.3s;
+            color: var(--text-dark); text-decoration: none;
+            font-size: 0.95rem; font-weight: 600; transition: color 0.3s;
         }
         .nav-links a:hover { color: var(--efs-red); }
 
-        .nav-actions { display: flex; align-items: center; gap: 1rem; }
+        .nav-actions { display: flex; align-items: center; gap: 1.2rem; }
+        
+        .nav-socials a { color: var(--efs-blue); font-size: 1.2rem; transition: color 0.3s; }
+        .nav-socials a:hover { color: var(--efs-red); }
 
         .btn-pronote {
             background: var(--efs-blue); color: var(--bg-white);
@@ -110,7 +111,7 @@
             justify-content: center;
             text-align: center;
             padding: 0 5%;
-            margin-top: 80px; /* Offset for navbar */
+            margin-top: 80px; 
         }
 
         .hero-content { max-width: 900px; color: var(--bg-white); }
@@ -151,7 +152,7 @@
         .portal-card p { font-size: 0.9rem; color: var(--text-muted); }
 
         /* --- LIVE NEWSROOM (SUPABASE FETCH) --- */
-        .news-section { padding: 6rem 5%; background: var(--efs-light-blue); }
+        .news-section { padding: 6rem 5% 4rem; background: var(--efs-light-blue); }
         .section-header { text-align: center; margin-bottom: 4rem; }
         .section-header h2 { font-size: 2.8rem; margin-bottom: 1rem; }
         
@@ -166,20 +167,78 @@
         .news-date { font-size: 0.85rem; color: var(--efs-red); font-weight: 700; margin-bottom: 0.5rem; display: block; }
         .news-title { font-size: 1.25rem; margin-bottom: 1rem; font-family: 'Inter', sans-serif; color: var(--text-dark); }
         .news-author { font-size: 0.85rem; color: var(--text-muted); font-style: italic; border-top: 1px solid #e2e8f0; padding-top: 1rem; margin-top: 1rem; }
-        
-        /* Loading/Empty State for News */
         .news-status { text-align: center; grid-column: 1 / -1; color: var(--text-muted); font-size: 1.1rem; padding: 2rem; }
 
-        /* --- FOOTER --- */
+        /* --- PARTNERS MARQUEE --- */
+        .partners-section {
+            background: var(--bg-white); padding: 4rem 0;
+            border-top: 1px solid var(--border-color); overflow: hidden;
+        }
+        .partners-header { text-align: center; margin-bottom: 2rem; }
+        .partners-header h3 { font-size: 2rem; color: var(--efs-blue); }
+        
+        .marquee-container {
+            width: 100%; overflow: hidden; white-space: nowrap; position: relative;
+        }
+        /* Gradient overlays for smooth scrolling effect */
+        .marquee-container::before, .marquee-container::after {
+            content: ""; position: absolute; top: 0; width: 150px; height: 100%; z-index: 2;
+        }
+        .marquee-container::before { left: 0; background: linear-gradient(to right, white, transparent); }
+        .marquee-container::after { right: 0; background: linear-gradient(to left, white, transparent); }
+
+        .marquee-content {
+            display: inline-flex; align-items: center; gap: 4rem;
+            animation: scrollMarquee 25s linear infinite;
+            padding-left: 100%;
+        }
+        .marquee-container:hover .marquee-content { animation-play-state: paused; }
+
+        .partner-item {
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+        }
+        .partner-item img { height: 70px; object-fit: contain; filter: grayscale(100%); transition: all 0.3s ease; margin-bottom: 0.5rem; }
+        .partner-item:hover img { filter: grayscale(0%); transform: scale(1.05); }
+        
+        .partner-links { display: flex; gap: 10px; opacity: 0; transition: opacity 0.3s; }
+        .partner-item:hover .partner-links { opacity: 1; }
+        .partner-links a { font-size: 0.8rem; color: var(--efs-blue); text-decoration: none; font-weight: 600; }
+        .partner-links a:hover { color: var(--efs-red); text-decoration: underline; }
+
+        @keyframes scrollMarquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-150%); }
+        }
+
+        /* --- 4-COLUMN MEGA FOOTER --- */
         .site-footer { background-color: var(--efs-blue); color: var(--bg-white); padding: 4rem 5% 2rem; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; max-width: 1200px; margin: 0 auto 3rem; }
-        .footer-logo img { height: 80px; margin-bottom: 1.5rem; background: var(--bg-white); padding: 10px; border-radius: 8px;}
-        .footer-links h4 { color: var(--bg-white); margin-bottom: 1.5rem; font-family: 'Inter', sans-serif; font-size: 1.1rem; }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1.5fr 1fr; gap: 3rem; max-width: 1300px; margin: 0 auto 3rem; }
+        
+        .footer-logo img { height: 70px; margin-bottom: 1.5rem; background: var(--bg-white); padding: 10px; border-radius: 8px;}
+        .footer-socials { display: flex; gap: 15px; margin-top: 1.5rem; }
+        .footer-socials a {
+            display: flex; justify-content: center; align-items: center; width: 40px; height: 40px;
+            background: rgba(255,255,255,0.1); color: var(--bg-white); border-radius: 50%;
+            transition: all 0.3s; font-size: 1.2rem;
+        }
+        .footer-socials a:hover { background: var(--efs-red); transform: translateY(-3px); }
+
+        .footer-links h4 { color: var(--bg-white); margin-bottom: 1.5rem; font-family: 'Inter', sans-serif; font-size: 1.1rem; border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; display: inline-block;}
         .footer-links ul { list-style: none; }
-        .footer-links li { margin-bottom: 0.8rem; }
+        .footer-links li { margin-bottom: 0.8rem; font-size: 0.9rem; }
         .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.3s; }
         .footer-links a:hover { color: var(--bg-white); }
         
+        .contact-box p { font-size: 0.9rem; color: rgba(255,255,255,0.8); margin-bottom: 0.8rem; display: flex; gap: 10px; align-items: flex-start; }
+        .contact-box i { color: var(--efs-red); margin-top: 3px; }
+        
+        .hours-box { background: rgba(0,0,0,0.2); padding: 1.2rem; border-radius: 8px; margin-top: 1.5rem; border: 1px solid rgba(255,255,255,0.05); }
+        .hours-box h5 { font-size: 0.95rem; margin-bottom: 0.5rem; }
+        .hours-box p { margin-bottom: 0.3rem; font-size: 0.85rem; color: rgba(255,255,255,0.7); }
+        .live-status { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; padding: 0.4rem 0.8rem; border-radius: 4px; background: rgba(255,255,255,0.9); margin: 0.5rem 0; font-size: 0.85rem;}
+        
+        .map-container { width: 100%; height: 220px; border-radius: 8px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+
         /* Tyler Nicholas Attribution */
         .footer-bottom {
             text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);
@@ -190,11 +249,15 @@
 
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; }
             .nav-links { display: none; }
             .hero h1 { font-size: 2.8rem; }
-            .portals-grid, .news-grid, .footer-grid { grid-template-columns: 1fr; }
+            .portals-grid, .news-grid { grid-template-columns: 1fr; }
             .portals-section { margin-top: 0; padding-top: 3rem; }
+        }
+        @media (max-width: 600px) {
+            .footer-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -212,6 +275,10 @@
             <li><a href="/contact/" data-en="Contact" data-fr="Contact">Contact</a></li>
         </ul>
         <div class="nav-actions">
+            <div class="nav-socials">
+                <a href="https://www.facebook.com/ecolefrancaiseseychelles" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.instagram.com/ecolefrancaiseseychelles/" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            </div>
             <button id="langToggle" class="btn-lang">FR</button>
             <a href="https://www.index-education.com/fr/pronote-info.php" target="_blank" class="btn-pronote">Pronote</a>
         </div>
@@ -261,29 +328,105 @@
         </div>
     </section>
 
+    <section class="partners-section">
+        <div class="partners-header">
+            <h3 data-en="Our Official Partners" data-fr="Nos Partenaires Officiels">Our Official Partners</h3>
+        </div>
+        <div class="marquee-container">
+            <div class="marquee-content">
+                
+                <div class="partner-item">
+                    <a href="https://alliancefrancaisedesseychelles.com/decouvrir/home/" target="_blank">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2AxmTbCgFocOaz7b24Ujfcbxgs4cZL98E8Q&s" alt="Alliance Francaise">
+                    </a>
+                </div>
+
+                <div class="partner-item">
+                    <img src="https://www.signaletique-pro.fr/media/catalog/product/cache/677fb00a413738b7701ff093d192ecc5/i/n/int_gration_photo_48.jpg" alt="Republic Francaise">
+                    <div class="partner-links">
+                        <a href="https://www.info.gouv.fr/" target="_blank">Info.gouv</a> | 
+                        <a href="https://www.education.gouv.fr/" target="_blank">Education</a> | 
+                        <a href="https://aefe.gouv.fr/fr" target="_blank">AEFE</a>
+                    </div>
+                </div>
+
+                <div class="partner-item">
+                    <a href="https://seyfoot.com/" target="_blank">
+                        <img src="https://seyfoot.com/wp-content/uploads/2020/10/sff_logo.png" alt="Seychelles Football Federation">
+                    </a>
+                </div>
+
+                <div class="partner-item">
+                    <a href="https://alliancefrancaisedesseychelles.com/decouvrir/home/" target="_blank">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2AxmTbCgFocOaz7b24Ujfcbxgs4cZL98E8Q&s" alt="Alliance Francaise">
+                    </a>
+                </div>
+                <div class="partner-item">
+                    <img src="https://www.signaletique-pro.fr/media/catalog/product/cache/677fb00a413738b7701ff093d192ecc5/i/n/int_gration_photo_48.jpg" alt="Republic Francaise">
+                    <div class="partner-links">
+                        <a href="https://www.info.gouv.fr/" target="_blank">Info.gouv</a> | 
+                        <a href="https://www.education.gouv.fr/" target="_blank">Education</a> | 
+                        <a href="https://aefe.gouv.fr/fr" target="_blank">AEFE</a>
+                    </div>
+                </div>
+                <div class="partner-item">
+                    <a href="https://seyfoot.com/" target="_blank">
+                        <img src="https://seyfoot.com/wp-content/uploads/2020/10/sff_logo.png" alt="Seychelles Football Federation">
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <footer class="site-footer">
         <div class="footer-grid">
+            
             <div>
                 <div class="footer-logo"><img src="https://jobo.sc/wp-content/uploads/2019/08/EFS_Logo_270px-200x200.png" alt="EFS Logo"></div>
-                <p data-en="Ecole Française des Seychelles. An official partner of the AEFE network, providing premium French education." data-fr="École Française des Seychelles. Partenaire officiel du réseau AEFE, offrant un enseignement français de qualité.">Ecole Française des Seychelles. An official partner of the AEFE network, providing premium French education.</p>
+                <p data-en="An official partner of the AEFE network, providing premium French education from kindergarten through high school." data-fr="Partenaire officiel du réseau AEFE, offrant un enseignement français de qualité de la maternelle au lycée." style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">An official partner of the AEFE network, providing premium French education from kindergarten through high school.</p>
+                <div class="footer-socials">
+                    <a href="https://www.facebook.com/ecolefrancaiseseychelles" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/ecolefrancaiseseychelles/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                </div>
             </div>
+
             <div class="footer-links">
-                <h4 data-en="Quick Links" data-fr="Liens Rapides">Quick Links</h4>
+                <h4 data-en="Institutional Links" data-fr="Liens Institutionnels">Institutional Links</h4>
                 <ul>
-                    <li><a href="/about/" data-en="The Establishment" data-fr="L'Établissement">The Establishment</a></li>
-                    <li><a href="/exams/" data-en="Exams (BAC/Brevet)" data-fr="Examens (BAC/Brevet)">Exams (BAC/Brevet)</a></li>
-                    <li><a href="/orientation/" data-en="Orientation & Alumni" data-fr="Orientation & Anciens">Orientation & Alumni</a></li>
+                    <li><a href="https://aefe.gouv.fr/fr" target="_blank" data-en="AEFE Official Website" data-fr="Site Officiel AEFE">AEFE Official Website</a></li>
+                    <li><a href="https://lannuaire.service-public.gouv.fr/ambassades/9ea88ca7-34f1-4bcb-9357-e4816c46625d" target="_blank" data-en="Ambassade de France" data-fr="Ambassade de France">Ambassade de France</a></li>
+                    <li><a href="https://sc.diplomatie.gouv.fr/fr" target="_blank" data-en="Diplomatie (France in SC)" data-fr="La France aux Seychelles">Diplomatie (France in SC)</a></li>
+                    <li><a href="https://www.facebook.com/LaFranceauxSeychelles/" target="_blank"><i class="fa-brands fa-facebook"></i> Ambassade Facebook</a></li>
                     <li><a href="/admin/" data-en="Staff Login" data-fr="Accès Personnel">Staff Login</a></li>
                 </ul>
             </div>
-            <div class="footer-links">
-                <h4 data-en="Contact Us" data-fr="Nous Contacter">Contact Us</h4>
-                <ul>
-                    <li><i class="fa-solid fa-location-dot"></i> Victoria, Mahé, Seychelles</li>
-                    <li><a href="/contact/" data-en="Who to Contact Directory" data-fr="Annuaire des Contacts">Who to Contact Directory</a></li>
-                </ul>
+
+            <div class="footer-links contact-box">
+                <h4 data-en="Contact & Hours" data-fr="Contact & Horaires">Contact & Hours</h4>
+                <p><i class="fa-solid fa-location-dot"></i> 788 BP, Riverside, MAHE, SEYCHELLES</p>
+                <p><i class="fa-solid fa-envelope"></i> secretaire@ecofrasey.com</p>
+                <p><i class="fa-solid fa-phone"></i> +248 432 22 10</p>
+                
+                <div class="hours-box">
+                    <h5 data-en="Campus Operations" data-fr="Opérations du Campus">Campus Operations</h5>
+                    <p data-en="Mon - Fri: 8:00 AM - 4:00 PM" data-fr="Lun - Ven: 08h00 - 16h00">Mon - Fri: 8:00 AM - 4:00 PM</p>
+                    
+                    <div id="live-status-container"></div>
+                    
+                    <p style="font-size: 0.75rem; font-style: italic; margin-top: 5px; color: rgba(255,255,255,0.5);" data-en="Excludes public holidays. Please call before visiting." data-fr="Hors jours fériés. Veuillez appeler avant de vous déplacer.">Excludes public holidays. Please call before visiting.</p>
+                </div>
             </div>
+
+            <div class="footer-links">
+                <h4 data-en="Location" data-fr="Emplacement">Location</h4>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3973.931754020352!2d55.4594!3d-4.6346!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x22e02b78d91c1407%3A0xc3cf6ce60b86a88e!2sEcole%20Fran%C3%A7aise%20des%20Seychelles!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
         </div>
+        
         <div class="footer-bottom">
             &copy; 2026 Ecole Française des Seychelles. <span data-en="All rights reserved." data-fr="Tous droits réservés.">All rights reserved.</span><br>
             <span style="font-size: 0.8rem; margin-top: 10px; display: block;">Made by <a href="https://tyler.tylernicholasgroup.com" target="_blank" class="creator-link">Tyler Nicholas</a></span>
@@ -308,32 +451,55 @@
         const translatableElements = document.querySelectorAll('[data-en][data-fr]');
         const langToggleBtn = document.getElementById('langToggle');
         
-        // Default to English if no cookie
         let currentLang = getCookie('efs_lang') || 'en';
 
         function applyLanguage(lang) {
             currentLang = lang;
-            document.cookie = `efs_lang=${lang}; path=/; max-age=31536000`; // Save for 1 year
+            document.cookie = `efs_lang=${lang}; path=/; max-age=31536000`; 
             
-            // Update button text to show the *other* language option
             langToggleBtn.innerText = lang === 'en' ? 'FR' : 'EN';
             
-            // Swap text for all elements
             translatableElements.forEach(el => {
                 el.innerText = el.getAttribute(`data-${lang}`);
             });
+            
+            updateLiveStatus(); // Refresh status language instantly
         }
 
-        // Apply on initial load
         applyLanguage(currentLang);
 
-        // Toggle on click
         langToggleBtn.addEventListener('click', () => {
             applyLanguage(currentLang === 'en' ? 'fr' : 'en');
         });
 
+        // 3. Live Seychelles Operating Hours Engine
+        function updateLiveStatus() {
+            const now = new Date();
+            // Force calculations to Seychelles time (UTC+4)
+            const seychellesTime = new Date(now.toLocaleString("en-US", {timeZone: "Indian/Mahe"}));
+            
+            const day = seychellesTime.getDay(); // 0 = Sun, 1 = Mon...
+            const hour = seychellesTime.getHours();
 
-        // 3. Supabase Live Fetch Logic
+            const isWeekend = (day === 0 || day === 6);
+            const isWorkingHour = (hour >= 8 && hour < 16); // 08:00 to 15:59
+
+            const statusContainer = document.getElementById('live-status-container');
+            
+            if (!isWeekend && isWorkingHour) {
+                const text = currentLang === 'en' ? 'Currently Open' : 'Actuellement Ouvert';
+                statusContainer.innerHTML = `<div class="live-status" style="color: #155724;"><i class="fa-solid fa-door-open"></i> 🟢 ${text}</div>`;
+            } else {
+                const text = currentLang === 'en' ? 'Currently Closed' : 'Actuellement Fermé';
+                statusContainer.innerHTML = `<div class="live-status" style="color: #721c24;"><i class="fa-solid fa-door-closed"></i> 🔴 ${text}</div>`;
+            }
+        }
+        
+        // Update immediately, then every 60 seconds
+        updateLiveStatus();
+        setInterval(updateLiveStatus, 60000);
+
+        // 4. Supabase Live Fetch Logic
         const SUPABASE_URL = 'https://lnajsjbmprslzochnmum.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxuYWpzamJtcHJzbHpvY2hubXVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1OTUxMzEsImV4cCI6MjA4OTE3MTEzMX0.OWFouBb5MRbcaXtrbtyiQqIv4tdTx4PdAIfvCB62RaY';
         
@@ -341,7 +507,6 @@
             const container = document.getElementById('news-container');
             
             try {
-                // Fetch the 3 most recent published articles
                 const response = await fetch(`${SUPABASE_URL}/rest/v1/efs_news?select=*&is_published=eq.true&order=created_at.desc&limit=3`, {
                     method: 'GET',
                     headers: {
@@ -360,14 +525,11 @@
                     return;
                 }
 
-                container.innerHTML = ''; // Clear loading spinner
+                container.innerHTML = ''; 
 
                 data.forEach(news => {
-                    // Format date
                     const dateObj = new Date(news.created_at);
                     const dateStr = dateObj.toLocaleDateString(currentLang === 'en' ? 'en-US' : 'fr-FR', { month: 'short', day: 'numeric', year: 'numeric' });
-                    
-                    // Fallback image if none provided
                     const imgUrl = news.image_url || 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop';
 
                     const card = `
@@ -390,7 +552,6 @@
             }
         }
 
-        // Trigger fetch after loader finishes to ensure smooth rendering
         setTimeout(fetchLatestNews, 600);
     </script>
 </body>

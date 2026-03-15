@@ -169,50 +169,50 @@
         .news-author { font-size: 0.85rem; color: var(--text-muted); font-style: italic; border-top: 1px solid #e2e8f0; padding-top: 1rem; margin-top: 1rem; }
         .news-status { text-align: center; grid-column: 1 / -1; color: var(--text-muted); font-size: 1.1rem; padding: 2rem; }
 
-        /* --- PARTNERS MARQUEE --- */
+        /* --- PARTNERS FADE CAROUSEL --- */
         .partners-section {
             background: var(--bg-white); padding: 4rem 0;
-            border-top: 1px solid var(--border-color); overflow: hidden;
+            border-top: 1px solid var(--border-color);
         }
         .partners-header { text-align: center; margin-bottom: 2rem; }
         .partners-header h3 { font-size: 2rem; color: var(--efs-blue); }
         
-        .marquee-container {
-            width: 100%; overflow: hidden; white-space: nowrap; position: relative;
+        .partners-carousel {
+            position: relative;
+            height: 100px; /* Fixed height to prevent jumping */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 800px;
+            margin: 0 auto;
         }
-        /* Gradient overlays for smooth scrolling effect */
-        .marquee-container::before, .marquee-container::after {
-            content: ""; position: absolute; top: 0; width: 150px; height: 100%; z-index: 2;
-        }
-        .marquee-container::before { left: 0; background: linear-gradient(to right, white, transparent); }
-        .marquee-container::after { right: 0; background: linear-gradient(to left, white, transparent); }
-
-        .marquee-content {
-            display: inline-flex; align-items: center; gap: 4rem;
-            animation: scrollMarquee 25s linear infinite;
-            padding-left: 100%;
-        }
-        .marquee-container:hover .marquee-content { animation-play-state: paused; }
 
         .partner-item {
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+            transform: scale(0.95);
+            pointer-events: none;
             display: flex; flex-direction: column; align-items: center; text-align: center;
         }
-        .partner-item img { height: 70px; object-fit: contain; filter: grayscale(100%); transition: all 0.3s ease; margin-bottom: 0.5rem; }
-        .partner-item:hover img { filter: grayscale(0%); transform: scale(1.05); }
+
+        .partner-item.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        .partner-item img { height: 75px; object-fit: contain; filter: grayscale(100%); transition: all 0.3s ease; margin-bottom: 0.5rem; }
+        .partner-item:hover img { filter: grayscale(0%); }
         
         .partner-links { display: flex; gap: 10px; opacity: 0; transition: opacity 0.3s; }
         .partner-item:hover .partner-links { opacity: 1; }
-        .partner-links a { font-size: 0.8rem; color: var(--efs-blue); text-decoration: none; font-weight: 600; }
+        .partner-links a { font-size: 0.85rem; color: var(--efs-blue); text-decoration: none; font-weight: 600; }
         .partner-links a:hover { color: var(--efs-red); text-decoration: underline; }
 
-        @keyframes scrollMarquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-150%); }
-        }
-
-        /* --- 4-COLUMN MEGA FOOTER --- */
+        /* --- 3-COLUMN MEGA FOOTER --- */
         .site-footer { background-color: var(--efs-blue); color: var(--bg-white); padding: 4rem 5% 2rem; }
-        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1.5fr 1fr; gap: 3rem; max-width: 1300px; margin: 0 auto 3rem; }
+        .footer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4rem; max-width: 1200px; margin: 0 auto 3rem; }
         
         .footer-logo img { height: 70px; margin-bottom: 1.5rem; background: var(--bg-white); padding: 10px; border-radius: 8px;}
         .footer-socials { display: flex; gap: 15px; margin-top: 1.5rem; }
@@ -232,13 +232,11 @@
         .contact-box p { font-size: 0.9rem; color: rgba(255,255,255,0.8); margin-bottom: 0.8rem; display: flex; gap: 10px; align-items: flex-start; }
         .contact-box i { color: var(--efs-red); margin-top: 3px; }
         
-        .hours-box { background: rgba(0,0,0,0.2); padding: 1.2rem; border-radius: 8px; margin-top: 1.5rem; border: 1px solid rgba(255,255,255,0.05); }
-        .hours-box h5 { font-size: 0.95rem; margin-bottom: 0.5rem; }
-        .hours-box p { margin-bottom: 0.3rem; font-size: 0.85rem; color: rgba(255,255,255,0.7); }
-        .live-status { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; padding: 0.4rem 0.8rem; border-radius: 4px; background: rgba(255,255,255,0.9); margin: 0.5rem 0; font-size: 0.85rem;}
+        .hours-box { background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem; border: 1px solid rgba(255,255,255,0.05); }
+        .hours-box h5 { font-size: 1rem; margin-bottom: 0.8rem; color: var(--bg-white); }
+        .live-status-text { font-size: 0.95rem; font-weight: 600; color: #a3bfda; margin-bottom: 0.8rem; line-height: 1.4; }
+        .live-status-text.closed { color: #ff6b6b; }
         
-        .map-container { width: 100%; height: 220px; border-radius: 8px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-
         /* Tyler Nicholas Attribution */
         .footer-bottom {
             text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);
@@ -249,15 +247,12 @@
 
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        @media (max-width: 1024px) {
-            .footer-grid { grid-template-columns: 1fr 1fr; }
+        @media (max-width: 900px) {
+            .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
             .nav-links { display: none; }
             .hero h1 { font-size: 2.8rem; }
             .portals-grid, .news-grid { grid-template-columns: 1fr; }
             .portals-section { margin-top: 0; padding-top: 3rem; }
-        }
-        @media (max-width: 600px) {
-            .footer-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -332,50 +327,30 @@
         <div class="partners-header">
             <h3 data-en="Our Official Partners" data-fr="Nos Partenaires Officiels">Our Official Partners</h3>
         </div>
-        <div class="marquee-container">
-            <div class="marquee-content">
-                
-                <div class="partner-item">
-                    <a href="https://alliancefrancaisedesseychelles.com/decouvrir/home/" target="_blank">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2AxmTbCgFocOaz7b24Ujfcbxgs4cZL98E8Q&s" alt="Alliance Francaise">
-                    </a>
-                </div>
-
-                <div class="partner-item">
-                    <img src="https://www.signaletique-pro.fr/media/catalog/product/cache/677fb00a413738b7701ff093d192ecc5/i/n/int_gration_photo_48.jpg" alt="Republic Francaise">
-                    <div class="partner-links">
-                        <a href="https://www.info.gouv.fr/" target="_blank">Info.gouv</a> | 
-                        <a href="https://www.education.gouv.fr/" target="_blank">Education</a> | 
-                        <a href="https://aefe.gouv.fr/fr" target="_blank">AEFE</a>
-                    </div>
-                </div>
-
-                <div class="partner-item">
-                    <a href="https://seyfoot.com/" target="_blank">
-                        <img src="https://seyfoot.com/wp-content/uploads/2020/10/sff_logo.png" alt="Seychelles Football Federation">
-                    </a>
-                </div>
-
-                <div class="partner-item">
-                    <a href="https://alliancefrancaisedesseychelles.com/decouvrir/home/" target="_blank">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2AxmTbCgFocOaz7b24Ujfcbxgs4cZL98E8Q&s" alt="Alliance Francaise">
-                    </a>
-                </div>
-                <div class="partner-item">
-                    <img src="https://www.signaletique-pro.fr/media/catalog/product/cache/677fb00a413738b7701ff093d192ecc5/i/n/int_gration_photo_48.jpg" alt="Republic Francaise">
-                    <div class="partner-links">
-                        <a href="https://www.info.gouv.fr/" target="_blank">Info.gouv</a> | 
-                        <a href="https://www.education.gouv.fr/" target="_blank">Education</a> | 
-                        <a href="https://aefe.gouv.fr/fr" target="_blank">AEFE</a>
-                    </div>
-                </div>
-                <div class="partner-item">
-                    <a href="https://seyfoot.com/" target="_blank">
-                        <img src="https://seyfoot.com/wp-content/uploads/2020/10/sff_logo.png" alt="Seychelles Football Federation">
-                    </a>
-                </div>
-
+        
+        <div class="partners-carousel" id="partnersCarousel">
+            
+            <div class="partner-item active">
+                <a href="https://alliancefrancaisedesseychelles.com/decouvrir/home/" target="_blank">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2AxmTbCgFocOaz7b24Ujfcbxgs4cZL98E8Q&s" alt="Alliance Francaise">
+                </a>
             </div>
+
+            <div class="partner-item">
+                <img src="https://www.signaletique-pro.fr/media/catalog/product/cache/677fb00a413738b7701ff093d192ecc5/i/n/int_gration_photo_48.jpg" alt="Republic Francaise">
+                <div class="partner-links">
+                    <a href="https://www.info.gouv.fr/" target="_blank">Info.gouv</a> | 
+                    <a href="https://www.education.gouv.fr/" target="_blank">Education</a> | 
+                    <a href="https://aefe.gouv.fr/fr" target="_blank">AEFE</a>
+                </div>
+            </div>
+
+            <div class="partner-item">
+                <a href="https://seyfoot.com/" target="_blank">
+                    <img src="https://seyfoot.com/wp-content/uploads/2020/10/sff_logo.png" alt="Seychelles Football Federation">
+                </a>
+            </div>
+
         </div>
     </section>
 
@@ -403,32 +378,24 @@
             </div>
 
             <div class="footer-links contact-box">
-                <h4 data-en="Contact & Hours" data-fr="Contact & Horaires">Contact & Hours</h4>
+                <h4 data-en="Contact & Information" data-fr="Contact & Informations">Contact & Information</h4>
                 <p><i class="fa-solid fa-location-dot"></i> 788 BP, Riverside, MAHE, SEYCHELLES</p>
                 <p><i class="fa-solid fa-envelope"></i> secretaire@ecofrasey.com</p>
                 <p><i class="fa-solid fa-phone"></i> +248 432 22 10</p>
                 
                 <div class="hours-box">
                     <h5 data-en="Campus Operations" data-fr="Opérations du Campus">Campus Operations</h5>
-                    <p data-en="Mon - Fri: 8:00 AM - 4:00 PM" data-fr="Lun - Ven: 08h00 - 16h00">Mon - Fri: 8:00 AM - 4:00 PM</p>
                     
                     <div id="live-status-container"></div>
                     
-                    <p style="font-size: 0.75rem; font-style: italic; margin-top: 5px; color: rgba(255,255,255,0.5);" data-en="Excludes public holidays. Please call before visiting." data-fr="Hors jours fériés. Veuillez appeler avant de vous déplacer.">Excludes public holidays. Please call before visiting.</p>
-                </div>
-            </div>
-
-            <div class="footer-links">
-                <h4 data-en="Location" data-fr="Emplacement">Location</h4>
-                <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3973.931754020352!2d55.4594!3d-4.6346!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x22e02b78d91c1407%3A0xc3cf6ce60b86a88e!2sEcole%20Fran%C3%A7aise%20des%20Seychelles!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <p style="font-size: 0.75rem; font-style: italic; color: rgba(255,255,255,0.5);" data-en="Excludes public holidays. Please call before visiting." data-fr="Hors jours fériés. Veuillez appeler avant de vous déplacer.">Excludes public holidays. Please call before visiting.</p>
                 </div>
             </div>
 
         </div>
         
         <div class="footer-bottom">
-            &copy; 2026 Ecole Française des Seychelles. <span data-en="All rights reserved." data-fr="Tous droits réservés.">All rights reserved.</span><br>
+            © 2026 Ecole Française des Seychelles. <span data-en="All rights reserved." data-fr="Tous droits réservés.">All rights reserved.</span><br>
             <span style="font-size: 0.8rem; margin-top: 10px; display: block;">Made by <a href="https://tyler.tylernicholasgroup.com" target="_blank" class="creator-link">Tyler Nicholas</a></span>
         </div>
     </footer>
@@ -472,34 +439,80 @@
             applyLanguage(currentLang === 'en' ? 'fr' : 'en');
         });
 
-        // 3. Live Seychelles Operating Hours Engine
+        // 3. Carousel Logic (5 Seconds Crossfade)
+        const partners = document.querySelectorAll('.partner-item');
+        let currentPartner = 0;
+        
+        setInterval(() => {
+            partners[currentPartner].classList.remove('active');
+            currentPartner = (currentPartner + 1) % partners.length;
+            partners[currentPartner].classList.add('active');
+        }, 5000);
+
+        // 4. Live Text Countdown Engine
         function updateLiveStatus() {
             const now = new Date();
-            // Force calculations to Seychelles time (UTC+4)
             const seychellesTime = new Date(now.toLocaleString("en-US", {timeZone: "Indian/Mahe"}));
             
-            const day = seychellesTime.getDay(); // 0 = Sun, 1 = Mon...
-            const hour = seychellesTime.getHours();
-
-            const isWeekend = (day === 0 || day === 6);
-            const isWorkingHour = (hour >= 8 && hour < 16); // 08:00 to 15:59
-
+            const day = seychellesTime.getDay(); 
+            const hours = seychellesTime.getHours();
+            
             const statusContainer = document.getElementById('live-status-container');
             
-            if (!isWeekend && isWorkingHour) {
-                const text = currentLang === 'en' ? 'Currently Open' : 'Actuellement Ouvert';
-                statusContainer.innerHTML = `<div class="live-status" style="color: #155724;"><i class="fa-solid fa-door-open"></i> 🟢 ${text}</div>`;
+            let isOpen = (day >= 1 && day <= 5) && (hours >= 8 && hours < 16);
+            let nextEventTime = new Date(seychellesTime);
+            
+            if (isOpen) {
+                nextEventTime.setHours(16, 0, 0, 0);
+                
+                let diffMs = nextEventTime - seychellesTime;
+                let diffHrs = Math.floor(diffMs / (1000 * 60 * 60));
+                let diffMins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+                
+                let timeStr = "";
+                if (diffHrs > 0) timeStr += `${diffHrs} hour${diffHrs > 1 ? 's' : ''} `;
+                if (diffMins > 0 || diffHrs === 0) timeStr += `${diffMins} minute${diffMins !== 1 ? 's' : ''}`;
+                
+                let textEN = `Currently open. Closes in ${timeStr.trim()}.`;
+                let textFR = `Actuellement ouvert. Ferme dans ${timeStr.trim().replace('hours','heures').replace('hour','heure').replace('minutes','minutes').replace('minute','minute')}.`;
+                
+                statusContainer.innerHTML = `<div class="live-status-text">${currentLang === 'en' ? textEN : textFR}</div>`;
             } else {
-                const text = currentLang === 'en' ? 'Currently Closed' : 'Actuellement Fermé';
-                statusContainer.innerHTML = `<div class="live-status" style="color: #721c24;"><i class="fa-solid fa-door-closed"></i> 🔴 ${text}</div>`;
+                if (day === 5 && hours >= 16) {
+                    nextEventTime.setDate(nextEventTime.getDate() + 3);
+                    nextEventTime.setHours(8, 0, 0, 0);
+                } else if (day === 6) {
+                    nextEventTime.setDate(nextEventTime.getDate() + 2);
+                    nextEventTime.setHours(8, 0, 0, 0);
+                } else if (day === 0) {
+                    nextEventTime.setDate(nextEventTime.getDate() + 1);
+                    nextEventTime.setHours(8, 0, 0, 0);
+                } else if (hours >= 16) {
+                    nextEventTime.setDate(nextEventTime.getDate() + 1);
+                    nextEventTime.setHours(8, 0, 0, 0);
+                } else {
+                    nextEventTime.setHours(8, 0, 0, 0);
+                }
+                
+                let diffMs = nextEventTime - seychellesTime;
+                let diffHrs = Math.floor(diffMs / (1000 * 60 * 60));
+                let diffMins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+                
+                let timeStr = "";
+                if (diffHrs > 0) timeStr += `${diffHrs} hour${diffHrs > 1 ? 's' : ''} `;
+                if (diffMins > 0 || diffHrs === 0) timeStr += `${diffMins} minute${diffMins !== 1 ? 's' : ''}`;
+                
+                let textEN = `Currently closed. Opens in ${timeStr.trim()}.`;
+                let textFR = `Actuellement fermé. Ouvre dans ${timeStr.trim().replace('hours','heures').replace('hour','heure').replace('minutes','minutes').replace('minute','minute')}.`; 
+                
+                statusContainer.innerHTML = `<div class="live-status-text closed">${currentLang === 'en' ? textEN : textFR}</div>`;
             }
         }
         
-        // Update immediately, then every 60 seconds
         updateLiveStatus();
         setInterval(updateLiveStatus, 60000);
 
-        // 4. Supabase Live Fetch Logic
+        // 5. Supabase Live Fetch Logic
         const SUPABASE_URL = 'https://lnajsjbmprslzochnmum.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxuYWpzamJtcHJzbHpvY2hubXVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1OTUxMzEsImV4cCI6MjA4OTE3MTEzMX0.OWFouBb5MRbcaXtrbtyiQqIv4tdTx4PdAIfvCB62RaY';
         

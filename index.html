@@ -171,15 +171,15 @@
 
         /* --- PARTNERS FADE CAROUSEL --- */
         .partners-section {
-            background: var(--bg-white); padding: 4rem 0;
+            background: var(--bg-white); padding: 5rem 0;
             border-top: 1px solid var(--border-color);
         }
-        .partners-header { text-align: center; margin-bottom: 2rem; }
+        .partners-header { text-align: center; margin-bottom: 3rem; }
         .partners-header h3 { font-size: 2rem; color: var(--efs-blue); }
         
         .partners-carousel {
             position: relative;
-            height: 100px; /* Fixed height to prevent jumping */
+            height: 180px; /* Increased height to accommodate full-color, larger logos */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -202,15 +202,22 @@
             pointer-events: auto;
         }
 
-        .partner-item img { height: 75px; object-fit: contain; filter: grayscale(100%); transition: all 0.3s ease; margin-bottom: 0.5rem; }
-        .partner-item:hover img { filter: grayscale(0%); }
+        .partner-item img { 
+            height: 120px; /* Scaled up significantly */
+            object-fit: contain; 
+            transition: transform 0.3s ease; 
+            margin-bottom: 1rem; 
+        }
+        .partner-item:hover img { 
+            transform: scale(1.05); /* Slight pop on hover */
+        }
         
         .partner-links { display: flex; gap: 10px; opacity: 0; transition: opacity 0.3s; }
         .partner-item:hover .partner-links { opacity: 1; }
-        .partner-links a { font-size: 0.85rem; color: var(--efs-blue); text-decoration: none; font-weight: 600; }
+        .partner-links a { font-size: 0.95rem; color: var(--efs-blue); text-decoration: none; font-weight: 600; }
         .partner-links a:hover { color: var(--efs-red); text-decoration: underline; }
 
-        /* --- 3-COLUMN MEGA FOOTER --- */
+        /* --- 3-COLUMN MEGA FOOTER (MAP REMOVED) --- */
         .site-footer { background-color: var(--efs-blue); color: var(--bg-white); padding: 4rem 5% 2rem; }
         .footer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4rem; max-width: 1200px; margin: 0 auto 3rem; }
         
@@ -449,7 +456,7 @@
             partners[currentPartner].classList.add('active');
         }, 5000);
 
-        // 4. Live Text Countdown Engine
+        // 4. Live Text Countdown Engine (No Emojis)
         function updateLiveStatus() {
             const now = new Date();
             const seychellesTime = new Date(now.toLocaleString("en-US", {timeZone: "Indian/Mahe"}));

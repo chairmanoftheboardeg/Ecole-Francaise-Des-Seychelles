@@ -74,7 +74,6 @@
         /* --- PAGE HERO --- */
         .page-hero {
             position: relative; height: 60vh; min-height: 400px;
-            /* Using the "teachers spelling EFS" picture */
             background-image: linear-gradient(rgba(0, 51, 102, 0.8), rgba(0, 51, 102, 0.8)), url('https://ecole-francaise-seychelles.com/wp-content/uploads/2025/06/bandeau-efs-1.jpg');
             background-size: cover; background-position: center 30%;
             display: flex; align-items: center; justify-content: center; text-align: center;
@@ -106,11 +105,12 @@
         .section-title p { color: var(--text-muted); font-size: 1.1rem; max-width: 700px; margin: 0 auto; }
         
         .structure-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1200px; margin: 0 auto 4rem; }
-        .structure-card { background: var(--efs-light-blue); padding: 2.5rem; border-radius: 8px; text-align: center; border-top: 4px solid var(--efs-blue); transition: all 0.3s; }
-        .structure-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,51,102,0.1); }
+        .structure-card { background: var(--efs-light-blue); padding: 2.5rem 2rem; border-radius: 8px; text-align: center; border-top: 4px solid var(--efs-blue); transition: all 0.3s; display: flex; flex-direction: column; }
+        .structure-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,51,102,0.1); border-top-color: var(--efs-red); }
         .structure-card i { font-size: 2.5rem; color: var(--efs-red); margin-bottom: 1.5rem; }
-        .structure-card h3 { font-family: 'Inter', sans-serif; font-size: 1.4rem; margin-bottom: 1rem; color: var(--text-dark); }
-        .structure-card p { color: var(--text-muted); font-size: 0.95rem; }
+        .structure-card h3 { font-family: 'Inter', sans-serif; font-size: 1.4rem; margin-bottom: 0.5rem; color: var(--text-dark); }
+        .structure-card .grades { font-weight: 700; color: var(--efs-blue); margin-bottom: 1rem; font-size: 0.9rem; letter-spacing: 1px; }
+        .structure-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
 
         .badges-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; max-width: 900px; margin: 0 auto; }
         .cert-badge { background: var(--bg-white); border: 1px solid var(--border-color); padding: 0.8rem 1.5rem; border-radius: 50px; display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--efs-blue); box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
@@ -118,28 +118,30 @@
 
         /* --- THE TEAM SECTION --- */
         .team-section { padding: 6rem 5%; background: var(--efs-light-blue); }
-        .team-photo-container { max-width: 1000px; margin: 0 auto 4rem; text-align: center; }
-        .team-photo-container img { width: 100%; border-radius: 12px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); border: 4px solid var(--bg-white); }
-        .team-photo-caption { margin-top: 1rem; font-size: 1.1rem; font-weight: 700; color: var(--efs-blue); font-family: 'Playfair Display', serif; }
-
-        .team-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; max-width: 1200px; margin: 0 auto; }
         
-        .proviseur-card { background: var(--bg-white); padding: 2.5rem; border-radius: 8px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .proviseur-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin: 0 auto 1.5rem; border: 4px solid var(--efs-light-blue); }
-        .proviseur-card h3 { font-family: 'Inter', sans-serif; font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--text-dark); }
-        .proviseur-card p { color: var(--efs-red); font-weight: 700; margin-bottom: 1rem; }
-        .proviseur-card .desc { color: var(--text-muted); font-size: 0.9rem; }
+        /* Proviseur Executive Card */
+        .executive-container { max-width: 700px; margin: 0 auto 4rem; text-align: center; }
+        .proviseur-card { background: var(--bg-white); padding: 3rem; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.05); position: relative; border-bottom: 5px solid var(--efs-blue); }
+        .proviseur-img { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; margin: 0 auto 1.5rem; border: 4px solid var(--bg-white); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .proviseur-card h3 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 0.5rem; color: var(--text-dark); }
+        .proviseur-card h4 { color: var(--efs-red); font-family: 'Inter', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px; }
+        .linkedin-btn { display: inline-flex; align-items: center; gap: 8px; background: #0a66c2; color: white; padding: 0.6rem 1.2rem; border-radius: 50px; text-decoration: none; font-size: 0.9rem; font-weight: 600; margin-top: 1rem; transition: background 0.3s; }
+        .linkedin-btn:hover { background: #004182; }
 
-        .staff-departments { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-        .dept-box { background: var(--bg-white); padding: 2rem; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border-left: 4px solid var(--efs-blue); }
-        .dept-box h4 { font-family: 'Inter', sans-serif; font-size: 1.1rem; color: var(--efs-blue); margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
+        /* Departments Grid */
+        .staff-departments { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; max-width: 1200px; margin: 0 auto; }
+        .dept-box { background: var(--bg-white); padding: 2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border-top: 4px solid var(--efs-red); transition: transform 0.3s; }
+        .dept-box:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+        .dept-box h4 { font-family: 'Inter', sans-serif; font-size: 1.2rem; color: var(--efs-blue); margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; }
+        .dept-box h4 i { color: var(--efs-red); }
+        
         .staff-list { list-style: none; }
-        .staff-list li { font-size: 0.9rem; margin-bottom: 0.6rem; color: var(--text-dark); display: flex; flex-direction: column; }
-        .staff-list li span.role { font-size: 0.8rem; color: var(--text-muted); }
+        .staff-list li { font-size: 0.95rem; margin-bottom: 1rem; color: var(--text-dark); display: flex; flex-direction: column; font-weight: 600; }
+        .staff-list li span.role { font-size: 0.85rem; color: var(--text-muted); font-weight: 400; margin-top: 2px; }
         
         /* Full width for teachers */
-        .teachers-box { grid-column: 1 / -1; }
-        .teachers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        .teachers-box { grid-column: 1 / -1; border-top-color: var(--efs-blue); }
+        .teachers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
 
         /* --- FOOTER (Imported from index) --- */
         .site-footer { background-color: var(--efs-blue); color: var(--bg-white); padding: 4rem 5% 2rem; }
@@ -168,13 +170,9 @@
         @media (max-width: 900px) {
             .history-section { flex-direction: column-reverse; text-align: center; }
             .stats-grid { grid-template-columns: 1fr 1fr; }
-            .structure-grid, .team-grid, .staff-departments { grid-template-columns: 1fr; }
-            .teachers-grid { grid-template-columns: 1fr 1fr; }
+            .structure-grid, .teachers-grid { grid-template-columns: 1fr; }
             .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
             .nav-links { display: none; }
-        }
-        @media (max-width: 600px) {
-            .teachers-grid, .stats-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -222,11 +220,11 @@
     <section class="stats-section">
         <div class="stats-grid">
             <div class="stat-item">
-                <h3>350</h3>
+                <h3>350+</h3>
                 <p data-en="Students" data-fr="Élèves">Students</p>
             </div>
             <div class="stat-item">
-                <h3>48</h3>
+                <h3>48+</h3>
                 <p data-en="Staff Members" data-fr="Personnels">Staff Members</p>
             </div>
             <div class="stat-item">
@@ -249,18 +247,21 @@
         <div class="structure-grid">
             <div class="structure-card">
                 <i class="fa-solid fa-shapes"></i>
-                <h3 data-en="Preschool" data-fr="Maternelle">Preschool</h3>
-                <p>TPS, PS, MS, GS</p>
+                <h3 data-en="Preschool" data-fr="École Maternelle">Preschool</h3>
+                <div class="grades">TPS • PS • MS • GS</div>
+                <p data-en="Focusing on early socialization, sensory awakening, and motor skills development. We lay the foundation for lifelong learning in a safe, play-based environment." data-fr="Axée sur la socialisation précoce, l'éveil sensoriel et le développement de la motricité. Nous posons les bases de l'apprentissage dans un environnement sûr et ludique.">Focusing on early socialization, sensory awakening, and motor skills development. We lay the foundation for lifelong learning in a safe, play-based environment.</p>
             </div>
             <div class="structure-card">
                 <i class="fa-solid fa-book-open-reader"></i>
-                <h3 data-en="Elementary" data-fr="Élémentaire">Elementary</h3>
-                <p data-en="From CP to CM2" data-fr="Du CP au CM2">From CP to CM2</p>
+                <h3 data-en="Elementary" data-fr="École Élémentaire">Elementary</h3>
+                <div class="grades">CP • CE1 • CE2 • CM1 • CM2</div>
+                <p data-en="Dedicated to mastering fundamental skills: reading, writing, and mathematics. English instruction begins early from CP, nurturing critical thinking and multicultural awareness." data-fr="Dédiée à la maîtrise des savoirs fondamentaux : lire, écrire et compter. L'enseignement de l'anglais débute dès le CP, favorisant l'esprit critique et l'ouverture multiculturelle.">Dedicated to mastering fundamental skills: reading, writing, and mathematics. English instruction begins early from CP, nurturing critical thinking and multicultural awareness.</p>
             </div>
             <div class="structure-card">
                 <i class="fa-solid fa-graduation-cap"></i>
                 <h3 data-en="Secondary" data-fr="Secondaire">Secondary</h3>
-                <p data-en="6th Grade to Terminale (CNED for 1ère & Terminale)" data-fr="De la 6ème à la terminale (1ère et terminale en CNED)">6th Grade to Terminale (CNED for 1ère & Terminale)</p>
+                <div class="grades">6ème ➔ Terminale</div>
+                <p data-en="Rigorous preparation for the Diplôme National du Brevet and the French Baccalauréat. Features specialized English IGCSE tracks and robust CNED integration for 1ère and Terminale students." data-fr="Préparation rigoureuse au Diplôme National du Brevet et au Baccalauréat français. Intègre la préparation IGCSE et un accompagnement CNED solide pour les classes de 1ère et Terminale.">Rigorous preparation for the Diplôme National du Brevet and the French Baccalauréat. Features specialized English IGCSE tracks and robust CNED integration for 1ère and Terminale students.</p>
             </div>
         </div>
 
@@ -275,99 +276,87 @@
 
     <section class="team-section">
         <div class="section-title">
-            <h2 data-en="Our Team" data-fr="Notre Équipe">Our Team</h2>
+            <h2 data-en="Executive Leadership & Staff" data-fr="Direction & Équipe Éducative">Executive Leadership & Staff</h2>
             <p data-en="Meet the dedicated professionals leading EFS in 2025-2026." data-fr="Rencontrez les professionnels dévoués qui dirigent l'EFS en 2025-2026.">Meet the dedicated professionals leading EFS in 2025-2026.</p>
         </div>
 
-        <div class="team-photo-container">
-            <img src="https://i.ibb.co/ZpCjJYDs/image-1.png" alt="EFS Team 2025-2026">
-            <div class="team-photo-caption" data-en="The EFS Educational & Administrative Team 2025-2026" data-fr="L'Équipe Pédagogique et Administrative EFS 2025-2026">The EFS Educational & Administrative Team 2025-2026</div>
+        <div class="executive-container">
+            <div class="proviseur-card">
+                <img src="https://media.licdn.com/dms/image/v2/D4E03AQEQB0ng_UVMUQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1695826720918?e=2147483647&v=beta&t=L6M1B9ywAYTQeP0RD5Xk3mT6AUDg94qqCrz6Kg14rc0" alt="Christine Guitton" class="proviseur-img">
+                <h3>Christine Guitton</h3>
+                <h4 data-en="Head Teacher / Proviseure" data-fr="Proviseure">Head Teacher / Proviseure</h4>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0.5rem;" data-en="Leading the pedagogical and administrative vision of the establishment." data-fr="Direction de la vision pédagogique et administrative de l'établissement.">Leading the pedagogical and administrative vision of the establishment.</p>
+                <a href="https://sc.linkedin.com/in/christine-guitton-97a73a145" target="_blank" class="linkedin-btn">
+                    <i class="fa-brands fa-linkedin"></i> Connect on LinkedIn
+                </a>
+            </div>
         </div>
 
-        <div class="team-grid">
+        <div class="staff-departments">
             
-            <div>
-                <div class="proviseur-card">
-                    <img src="https://ecole-francaise-seychelles.com/wp-content/uploads/2025/09/organigramme-efs-r2025.jpg?w=1440" alt="Christine Guitton" class="proviseur-img">
-                    <h3>Christine Guitton</h3>
-                    <p data-en="Head Teacher / Proviseure" data-fr="Proviseure">Head Teacher / Proviseure</p>
-                    <div class="desc" data-en="Leading the pedagogical and administrative vision of the establishment." data-fr="Direction de la vision pédagogique et administrative de l'établissement.">Leading the pedagogical and administrative vision of the establishment.</div>
-                </div>
+            <div class="dept-box">
+                <h4><i class="fa-solid fa-building-user"></i> <span data-en="Administration & Health" data-fr="Administration & Santé">Administration & Health</span></h4>
+                <ul class="staff-list">
+                    <li>Manon Peron <span class="role" data-en="Administrative Secretary" data-fr="Secrétaire administrative">Administrative Secretary</span></li>
+                    <li>Natalie Estico <span class="role" data-en="School Nurse" data-fr="Infirmière">School Nurse</span></li>
+                </ul>
             </div>
 
-            <div class="staff-departments">
-                
-                <div class="dept-box">
-                    <h4 data-en="Administration & Health" data-fr="Administration & Santé">Administration & Health</h4>
-                    <ul class="staff-list">
-                        <li>Manon Peron <span class="role" data-en="Administrative Secretary" data-fr="Secrétaire administrative">Administrative Secretary</span></li>
-                        <li>Natalie Estico <span class="role" data-en="School Nurse" data-fr="Infirmière">School Nurse</span></li>
-                    </ul>
-                </div>
-
-                <div class="dept-box">
-                    <h4 data-en="Technical & Maintenance" data-fr="Équipe Technique">Technical & Maintenance</h4>
-                    <ul class="staff-list">
-                        <li>Ronny Denys <span class="role" data-en="Head of Maintenance" data-fr="Chef de maintenance">Head of Maintenance</span></li>
-                        <li>Lucienne Libanotis <span class="role" data-en="Security Agent" data-fr="Agent de sécurité">Security Agent</span></li>
-                        <li>Alviona Laurence <span class="role" data-en="Cleaning Staff" data-fr="Agent de nettoyage">Cleaning Staff</span></li>
-                        <li>Angele Charles <span class="role" data-en="Cleaning Staff" data-fr="Agent de nettoyage">Cleaning Staff</span></li>
-                        <li>Christina Anacoura <span class="role" data-en="Cleaning Staff" data-fr="Agent de nettoyage">Cleaning Staff</span></li>
-                    </ul>
-                </div>
-
-                <div class="dept-box">
-                    <h4 data-en="School Life" data-fr="Vie Scolaire">School Life</h4>
-                    <ul class="staff-list">
-                        <li>Vanesha Comty <span class="role" data-en="Principal Education Counselor" data-fr="Conseillère principale d’éducation">Principal Education Counselor</span></li>
-                        <li>Randriamiarana Rinah <span class="role" data-en="Education Assistant / Comms" data-fr="Assistante d’éducation, attachée de communication">Education Assistant / Comms</span></li>
-                        <li>Ravaka Rakotomanana <span class="role" data-en="Extracurricular Director" data-fr="Assistante d’éducation, directrice extra-scolaire">Extracurricular Director</span></li>
-                        <li>Jemina Servina <span class="role" data-en="Education Assistant" data-fr="Assistante d’éducation">Education Assistant</span></li>
-                    </ul>
-                </div>
-
-                <div class="dept-box">
-                    <h4 data-en="Master Trainers & Library" data-fr="Formateurs & CDI">Master Trainers & Library</h4>
-                    <ul class="staff-list">
-                        <li>Frédéric Moga <span class="role" data-en="Master Trainer / CM2" data-fr="Enseignant Maître formateur / CM2">Master Trainer / CM2</span></li>
-                        <li>Alexandra Rauccio <span class="role" data-en="Library Assistant" data-fr="Assistante documentaliste">Library Assistant</span></li>
-                    </ul>
-                </div>
-
-                <div class="dept-box teachers-box">
-                    <h4 data-en="Teaching Staff & Assistants" data-fr="Équipe Enseignante & Assistantes">Teaching Staff & Assistants</h4>
-                    <ul class="staff-list teachers-grid">
-                        <li>Adriamparani Asaramanitra <span class="role" data-en="School Teacher" data-fr="Professeure des écoles">School Teacher</span></li>
-                        <li>Amesbury Ralph <span class="role" data-en="Music & Creole" data-fr="Professeur de musique et créole">Music & Creole</span></li>
-                        <li>Baroux Céline <span class="role" data-en="Literature" data-fr="Professeure de lettres">Literature</span></li>
-                        <li>Barbe Holy <span class="role" data-en="School Teacher" data-fr="Professeure des écoles">School Teacher</span></li>
-                        <li>Belmont Sharon <span class="role" data-en="Preschool Assistant" data-fr="Assistante maternelle">Preschool Assistant</span></li>
-                        <li>Dauphin Gwenaelle <span class="role" data-en="School Teacher" data-fr="Professeure des écoles">School Teacher</span></li>
-                        <li>De Lamberterie Hugues <span class="role" data-en="Biology & Tech" data-fr="Professeur de SVT et technologie">Biology & Tech</span></li>
-                        <li>Dickson Olivia <span class="role" data-en="PE Teacher" data-fr="Professeure d’EPS">PE Teacher</span></li>
-                        <li>Doku Betty <span class="role" data-en="English" data-fr="Professeure d’anglais">English</span></li>
-                        <li>Eychenne Anne <span class="role" data-en="School Teacher" data-fr="Professeure des écoles">School Teacher</span></li>
-                        <li>Eychenne Didier <span class="role" data-en="History/Geo" data-fr="Professeur d’histoire géographie EMC">History/Geo</span></li>
-                        <li>Francois Manoa <span class="role" data-en="Preschool Assistant" data-fr="Assistante maternelle">Preschool Assistant</span></li>
-                        <li>Gamard Alexis <span class="role" data-en="Math & Tech" data-fr="Prof. mathématiques, SNT, tech">Math & Tech</span></li>
-                        <li>Guillemin Delphine <span class="role" data-en="School Teacher" data-fr="Professeure des écoles">School Teacher</span></li>
-                        <li>Harivololona Anicette <span class="role" data-en="School Teacher" data-fr="Professeur des écoles">School Teacher</span></li>
-                        <li>Lenoir Morgane <span class="role" data-en="Literature & Philo" data-fr="Professeure de Lettres et philosophie">Literature & Philo</span></li>
-                        <li>Manga Aboudi Pamela <span class="role" data-en="School Teacher" data-fr="Professeure des écoles">School Teacher</span></li>
-                        <li>Martin Arnaud <span class="role" data-en="Physics/Chemistry" data-fr="Professeur de Sciences-Physiques">Physics/Chemistry</span></li>
-                        <li>Monbeig Pierre <span class="role" data-en="History/Geo" data-fr="Professeur d’histoire géographie EMC">History/Geo</span></li>
-                        <li>Michel Jean Claude <span class="role" data-en="English" data-fr="Professeur d’anglais">English</span></li>
-                        <li>Mousmie Yacintha <span class="role" data-en="Preschool Assistant" data-fr="Assistante maternelle">Preschool Assistant</span></li>
-                        <li>Padilla Liza <span class="role" data-en="School Teacher" data-fr="Professeur des écoles">School Teacher</span></li>
-                        <li>Razanajatovo Bodovolasoa <span class="role" data-en="Preschool Assistant" data-fr="Assistante maternelle">Preschool Assistant</span></li>
-                        <li>Sole Aurora <span class="role" data-en="Spanish" data-fr="Professeure d’espagnole">Spanish</span></li>
-                        <li>Sophie Beryl <span class="role" data-en="Preschool Assistant" data-fr="Assistante maternelle">Preschool Assistant</span></li>
-                        <li>Sorivelle Joseph <span class="role" data-en="Economics" data-fr="Professeur de SES et STMG">Economics</span></li>
-                        <li>Uzice Vincent <span class="role" data-en="Arts & Creole" data-fr="Professeur d’arts plastiques et créole">Arts & Creole</span></li>
-                    </ul>
-                </div>
-
+            <div class="dept-box">
+                <h4><i class="fa-solid fa-users-gear"></i> <span data-en="Technical & Maintenance" data-fr="Équipe Technique">Technical & Maintenance</span></h4>
+                <ul class="staff-list">
+                    <li>Ronny Denys <span class="role" data-en="Head of Maintenance" data-fr="Chef de maintenance">Head of Maintenance</span></li>
+                    <li>Lucienne Libanotis <span class="role" data-en="Security Agent" data-fr="Agent de sécurité">Security Agent</span></li>
+                    <li>Alviona Laurence <span class="role" data-en="Cleaning Staff" data-fr="Agent de nettoyage">Cleaning Staff</span></li>
+                    <li>Angele Charles <span class="role" data-en="Cleaning Staff" data-fr="Agent de nettoyage">Cleaning Staff</span></li>
+                    <li>Christina Anacoura <span class="role" data-en="Cleaning Staff" data-fr="Agent de nettoyage">Cleaning Staff</span></li>
+                </ul>
             </div>
+
+            <div class="dept-box">
+                <h4><i class="fa-solid fa-bell-concierge"></i> <span data-en="School Life" data-fr="Vie Scolaire">School Life</span></h4>
+                <ul class="staff-list">
+                    <li>Vanesha Comty <span class="role" data-en="Principal Education Counselor" data-fr="Conseillère principale d’éducation">Principal Education Counselor</span></li>
+                    <li>Randriamiarana Rinah <span class="role" data-en="Education Assistant / Comms" data-fr="Assistante d’éducation, attachée de communication">Education Assistant / Comms</span></li>
+                    <li>Ravaka Rakotomanana <span class="role" data-en="Extracurricular Director" data-fr="Assistante d’éducation, directrice extra-scolaire">Extracurricular Director</span></li>
+                    <li>Jemina Servina <span class="role" data-en="Education Assistant" data-fr="Assistante d’éducation">Education Assistant</span></li>
+                </ul>
+            </div>
+
+            <div class="dept-box teachers-box">
+                <h4><i class="fa-solid fa-chalkboard-user"></i> <span data-en="Pedagogical Team & Assistants" data-fr="Équipe Pédagogique & Assistantes">Pedagogical Team & Assistants</span></h4>
+                <ul class="staff-list teachers-grid">
+                    <li>Frédéric Moga <span class="role" data-en="Master Trainer / CM2" data-fr="Enseignant Maître formateur / CM2">Master Trainer / CM2</span></li>
+                    <li>Alexandra Rauccio <span class="role" data-en="Economics & Management" data-fr="Professeure de SES et STMG">Economics & Management</span></li>
+                    <li>Adriamparani Asaramanitra <span class="role" data-en="School Teacher" data-fr="Professeure des écoles">School Teacher</span></li>
+                    <li>Amesbury Ralph <span class="role" data-en="Music & Creole" data-fr="Professeur de musique et créole">Music & Creole</span></li>
+                    <li>Baroux Céline <span class="role" data-en="Literature" data-fr="Professeure de lettres">Literature</span></li>
+                    <li>Barbe Holy <span class="role" data-en="School Teacher" data-fr="Professeure des écoles">School Teacher</span></li>
+                    <li>Belmont Sharon <span class="role" data-en="Preschool Assistant" data-fr="Assistante maternelle">Preschool Assistant</span></li>
+                    <li>Dauphin Gwenaelle <span class="role" data-en="School Teacher" data-fr="Professeure des écoles">School Teacher</span></li>
+                    <li>De Lamberterie Hugues <span class="role" data-en="Biology & Tech" data-fr="Professeur de SVT et technologie">Biology & Tech</span></li>
+                    <li>Dickson Olivia <span class="role" data-en="PE Teacher" data-fr="Professeure d’EPS">PE Teacher</span></li>
+                    <li>Doku Betty <span class="role" data-en="English" data-fr="Professeure d’anglais">English</span></li>
+                    <li>Eychenne Anne <span class="role" data-en="School Teacher" data-fr="Professeure des écoles">School Teacher</span></li>
+                    <li>Eychenne Didier <span class="role" data-en="History/Geo" data-fr="Professeur d’histoire géographie EMC">History/Geo</span></li>
+                    <li>Francois Manoa <span class="role" data-en="Preschool Assistant" data-fr="Assistante maternelle">Preschool Assistant</span></li>
+                    <li>Gamard Alexis <span class="role" data-en="Math & Tech" data-fr="Prof. mathématiques, SNT, tech">Math & Tech</span></li>
+                    <li>Guillemin Delphine <span class="role" data-en="School Teacher" data-fr="Professeure des écoles">School Teacher</span></li>
+                    <li>Harivololona Anicette <span class="role" data-en="School Teacher" data-fr="Professeur des écoles">School Teacher</span></li>
+                    <li>Lenoir Morgane <span class="role" data-en="Literature & Philo" data-fr="Professeure de Lettres et philosophie">Literature & Philo</span></li>
+                    <li>Manga Aboudi Pamela <span class="role" data-en="School Teacher" data-fr="Professeure des écoles">School Teacher</span></li>
+                    <li>Martin Arnaud <span class="role" data-en="Physics/Chemistry" data-fr="Professeur de Sciences-Physiques">Physics/Chemistry</span></li>
+                    <li>Monbeig Pierre <span class="role" data-en="History/Geo" data-fr="Professeur d’histoire géographie EMC">History/Geo</span></li>
+                    <li>Michel Jean Claude <span class="role" data-en="English" data-fr="Professeur d’anglais">English</span></li>
+                    <li>Mousmie Yacintha <span class="role" data-en="Preschool Assistant" data-fr="Assistante maternelle">Preschool Assistant</span></li>
+                    <li>Padilla Liza <span class="role" data-en="School Teacher" data-fr="Professeur des écoles">School Teacher</span></li>
+                    <li>Razanajatovo Bodovolasoa <span class="role" data-en="Preschool Assistant" data-fr="Assistante maternelle">Preschool Assistant</span></li>
+                    <li>Sole Aurora <span class="role" data-en="Spanish" data-fr="Professeure d’espagnole">Spanish</span></li>
+                    <li>Sophie Beryl <span class="role" data-en="Preschool Assistant" data-fr="Assistante maternelle">Preschool Assistant</span></li>
+                    <li>Uzice Vincent <span class="role" data-en="Arts & Creole" data-fr="Professeur d’arts plastiques et créole">Arts & Creole</span></li>
+                </ul>
+            </div>
+
         </div>
     </section>
 

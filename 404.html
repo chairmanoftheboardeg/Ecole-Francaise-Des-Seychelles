@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | Ecole Française des Seychelles</title>
+    
+    <link rel="icon" href="https://jobo.sc/wp-content/uploads/2019/08/EFS_Logo_270px-200x200.png" type="image/png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* --- BRAND VARIABLES --- */
+        :root {
+            --efs-blue: #003366; 
+            --efs-red: #cc0000;
+            --efs-light-blue: #e6f0fa;
+            --bg-white: #ffffff;
+            --text-dark: #1a202c;
+            --text-muted: #718096;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--efs-blue); }
+
+        /* --- LOADER --- */
+        #loader {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: var(--bg-white); display: flex; justify-content: center; align-items: center;
+            z-index: 9999; transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+        }
+        .spinner {
+            width: 50px; height: 50px; border: 5px solid var(--efs-light-blue);
+            border-top-color: var(--efs-red); border-radius: 50%; animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 5%; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px);
+            position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0, 51, 102, 0.08);
+        }
+        .logo img { height: 60px; transition: transform 0.3s ease; }
+        .logo:hover img { transform: scale(1.05); }
+        .nav-links { list-style: none; display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { color: var(--text-dark); text-decoration: none; font-size: 0.95rem; font-weight: 600; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--efs-red); }
+        .nav-actions { display: flex; align-items: center; gap: 1.2rem; }
+        .nav-socials a { color: var(--efs-blue); font-size: 1.2rem; transition: color 0.3s; }
+        .nav-socials a:hover { color: var(--efs-red); }
+        .btn-pronote {
+            background: var(--efs-blue); color: var(--bg-white); padding: 0.6rem 1.5rem; border-radius: 4px;
+            text-decoration: none; font-weight: 700; transition: all 0.3s;
+        }
+        .btn-pronote:hover { background: var(--efs-red); transform: translateY(-2px); }
+        .btn-lang {
+            background: none; border: 2px solid var(--efs-blue); color: var(--efs-blue); padding: 0.4rem 0.8rem;
+            border-radius: 4px; font-weight: 700; cursor: pointer; transition: all 0.3s;
+        }
+        .btn-lang:hover { background: var(--efs-blue); color: var(--bg-white); }
+
+        /* --- 404 ERROR SECTION --- */
+        .error-section {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 5% 4rem;
+            margin-top: 80px; /* offset for navbar */
+            background: radial-gradient(circle at center, var(--efs-light-blue) 0%, var(--bg-white) 70%);
+        }
+
+        .error-icon {
+            font-size: 5rem;
+            color: var(--efs-red);
+            margin-bottom: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .error-code {
+            font-family: 'Playfair Display', serif;
+            font-size: 8rem;
+            line-height: 1;
+            color: var(--efs-blue);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 10px 30px rgba(0, 51, 102, 0.1);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .error-title {
+            font-size: 2.2rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .error-message {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .btn-primary {
+            background: var(--efs-blue); color: var(--bg-white);
+            padding: 1rem 2.5rem; border-radius: 4px;
+            text-decoration: none; font-weight: 700; font-size: 1.1rem;
+            transition: all 0.3s; display: inline-flex; align-items: center; gap: 10px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+        .btn-primary:hover { background: var(--efs-red); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(204, 0, 0, 0.2); }
+
+        /* --- MEGA FOOTER (Imported) --- */
+        .site-footer { background-color: var(--efs-blue); color: var(--bg-white); padding: 4rem 5% 2rem; margin-top: auto; }
+        .footer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4rem; max-width: 1200px; margin: 0 auto 3rem; }
+        .footer-logo img { height: 70px; margin-bottom: 1.5rem; background: var(--bg-white); padding: 10px; border-radius: 8px;}
+        .footer-socials { display: flex; gap: 15px; margin-top: 1.5rem; }
+        .footer-socials a { display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; background: rgba(255,255,255,0.1); color: var(--bg-white); border-radius: 50%; transition: all 0.3s; font-size: 1.2rem; }
+        .footer-socials a:hover { background: var(--efs-red); transform: translateY(-3px); }
+        .footer-links h4 { color: var(--bg-white); margin-bottom: 1.5rem; font-family: 'Inter', sans-serif; font-size: 1.1rem; border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; display: inline-block;}
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 0.8rem; font-size: 0.9rem; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--bg-white); }
+        .contact-box p { font-size: 0.9rem; color: rgba(255,255,255,0.8); margin-bottom: 0.8rem; display: flex; gap: 10px; align-items: flex-start; }
+        .contact-box i { color: var(--efs-red); margin-top: 3px; }
+        .hours-box { background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem; border: 1px solid rgba(255,255,255,0.05); }
+        .hours-box h5 { font-size: 1rem; margin-bottom: 0.8rem; color: var(--bg-white); }
+        .live-status-text { font-size: 0.95rem; font-weight: 600; color: #a3bfda; margin-bottom: 0.8rem; line-height: 1.4; }
+        .live-status-text.closed { color: #ff6b6b; }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); font-size: 0.9rem; }
+        .creator-link { color: var(--bg-white); font-weight: 700; text-decoration: none; transition: color 0.3s; }
+        .creator-link:hover { color: var(--efs-red); }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 900px) {
+            .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .nav-links { display: none; }
+            .error-code { font-size: 6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader"><div class="spinner"></div></div>
+
+    <nav class="navbar">
+        <a href="/" class="logo"><img src="https://jobo.sc/wp-content/uploads/2019/08/EFS_Logo_270px-200x200.png" alt="EFS Logo"></a>
+        <ul class="nav-links">
+            <li><a href="/about/" data-en="About Us" data-fr="À Propos">About Us</a></li>
+            <li><a href="/academics/" data-en="Academics" data-fr="Scolarité">Academics</a></li>
+            <li><a href="/admissions/" data-en="Admissions" data-fr="Inscriptions">Admissions</a></li>
+            <li><a href="/careers/" data-en="Careers" data-fr="Recrutement">Careers</a></li>
+            <li><a href="/contact/" data-en="Contact" data-fr="Contact">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <div class="nav-socials">
+                <a href="https://www.facebook.com/ecolefrancaiseseychelles" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.instagram.com/ecolefrancaiseseychelles/" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+            <button id="langToggle" class="btn-lang">FR</button>
+            <a href="https://3980001n.index-education.net/pronote/" target="_blank" class="btn-pronote">Pronote</a>
+        </div>
+    </nav>
+
+    <main class="error-section">
+        <div class="error-icon">
+            <i class="fa-solid fa-compass"></i>
+        </div>
+        <div class="error-code">404</div>
+        <h1 class="error-title" data-en="Page Not Found" data-fr="Page Introuvable">Page Not Found</h1>
+        <p class="error-message" data-en="It seems you've wandered off the campus map. The page you are looking for doesn't exist or has been moved." data-fr="Il semble que vous vous soyez égaré du plan du campus. La page que vous recherchez n'existe pas ou a été déplacée.">It seems you've wandered off the campus map. The page you are looking for doesn't exist or has been moved.</p>
+        
+        <a href="/" class="btn-primary">
+            <i class="fa-solid fa-arrow-left"></i> <span data-en="Return to Campus" data-fr="Retour au Campus">Return to Campus</span>
+        </a>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-grid">
+            
+            <div>
+                <div class="footer-logo"><img src="https://jobo.sc/wp-content/uploads/2019/08/EFS_Logo_270px-200x200.png" alt="EFS Logo"></div>
+                <p data-en="An official partner of the AEFE network, providing premium French education from kindergarten through high school." data-fr="Partenaire officiel du réseau AEFE, offrant un enseignement français de qualité de la maternelle au lycée." style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">An official partner of the AEFE network, providing premium French education from kindergarten through high school.</p>
+                <div class="footer-socials">
+                    <a href="https://www.facebook.com/ecolefrancaiseseychelles" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/ecolefrancaiseseychelles/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4 data-en="Institutional Links" data-fr="Liens Institutionnels">Institutional Links</h4>
+                <ul>
+                    <li><a href="https://aefe.gouv.fr/fr" target="_blank" data-en="AEFE Official Website" data-fr="Site Officiel AEFE">AEFE Official Website</a></li>
+                    <li><a href="https://lannuaire.service-public.gouv.fr/ambassades/9ea88ca7-34f1-4bcb-9357-e4816c46625d" target="_blank" data-en="Ambassade de France" data-fr="Ambassade de France">Ambassade de France</a></li>
+                    <li><a href="https://sc.diplomatie.gouv.fr/fr" target="_blank" data-en="Diplomatie (France in SC)" data-fr="La France aux Seychelles">Diplomatie (France in SC)</a></li>
+                    <li><a href="https://www.facebook.com/LaFranceauxSeychelles/" target="_blank"><i class="fa-brands fa-facebook"></i> Ambassade Facebook</a></li>
+                    <li><a href="/admin/" data-en="Staff Login" data-fr="Accès Personnel">Staff Login</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links contact-box">
+                <h4 data-en="Contact & Information" data-fr="Contact & Informations">Contact & Information</h4>
+                <p><i class="fa-solid fa-location-dot"></i> 788 BP, Riverside, MAHE, SEYCHELLES</p>
+                <p><i class="fa-solid fa-envelope"></i> secretaire@ecofrasey.com</p>
+                <p><i class="fa-solid fa-phone"></i> +248 432 22 10</p>
+                
+                <div class="hours-box">
+                    <h5 data-en="Campus Operations" data-fr="Opérations du Campus">Campus Operations</h5>
+                    <div id="live-status-container"></div>
+                    <p style="font-size: 0.75rem; font-style: italic; color: rgba(255,255,255,0.5);" data-en="Excludes public holidays. Please call before visiting." data-fr="Hors jours fériés. Veuillez appeler avant de vous déplacer.">Excludes public holidays. Please call before visiting.</p>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="footer-bottom">
+            © 2026 Ecole Française des Seychelles. <span data-en="All rights reserved." data-fr="Tous droits réservés.">All rights reserved.</span><br>
+            <span style="font-size: 0.8rem; margin-top: 10px; display: block;">Made by <a href="https://tyler.tylernicholasgroup.com" target="_blank" class="creator-link">Tyler Nicholas</a></span>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Loader Logic
+        window.addEventListener("load", () => {
+            setTimeout(() => {
+                document.getElementById("loader").style.opacity = "0";
+                setTimeout(() => document.getElementById("loader").style.visibility = "hidden", 600);
+            }, 500);
+        });
+
+        // 2. Cookie & Translation Logic
+        function getCookie(name) {
+            let matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
+            return matches ? decodeURIComponent(matches[1]) : undefined;
+        }
+
+        const translatableElements = document.querySelectorAll('[data-en][data-fr]');
+        const langToggleBtn = document.getElementById('langToggle');
+        
+        let currentLang = getCookie('efs_lang') || 'en';
+
+        function applyLanguage(lang) {
+            currentLang = lang;
+            document.cookie = `efs_lang=${lang}; path=/; max-age=31536000`; 
+            
+            langToggleBtn.innerText = lang === 'en' ? 'FR' : 'EN';
+            
+            translatableElements.forEach(el => {
+                el.innerText = el.getAttribute(`data-${lang}`);
+            });
+            
+            updateLiveStatus();
+        }
+
+        applyLanguage(currentLang);
+
+        langToggleBtn.addEventListener('click', () => {
+            applyLanguage(currentLang === 'en' ? 'fr' : 'en');
+        });
+
+        // 3. Live Text Countdown Engine (No Emojis)
+        function updateLiveStatus() {
+            const now = new Date();
+            const seychellesTime = new Date(now.toLocaleString("en-US", {timeZone: "Indian/Mahe"}));
+            
+            const day = seychellesTime.getDay(); 
+            const hours = seychellesTime.getHours();
+            
+            const statusContainer = document.getElementById('live-status-container');
+            
+            let isOpen = (day >= 1 && day <= 5) && (hours >= 8 && hours < 16);
+            let nextEventTime = new Date(seychellesTime);
+            
+            if (isOpen) {
+                nextEventTime.setHours(16, 0, 0, 0);
+                
+                let diffMs = nextEventTime - seychellesTime;
+                let diffHrs = Math.floor(diffMs / (1000 * 60 * 60));
+                let diffMins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+                
+                let timeStr = "";
+                if (diffHrs > 0) timeStr += `${diffHrs} hour${diffHrs > 1 ? 's' : ''} `;
+                if (diffMins > 0 || diffHrs === 0) timeStr += `${diffMins} minute${diffMins !== 1 ? 's' : ''}`;
+                
+                let textEN = `Currently open. Closes in ${timeStr.trim()}.`;
+                let textFR = `Actuellement ouvert. Ferme dans ${timeStr.trim().replace('hours','heures').replace('hour','heure').replace('minutes','minutes').replace('minute','minute')}.`;
+                
+                statusContainer.innerHTML = `<div class="live-status-text">${currentLang === 'en' ? textEN : textFR}</div>`;
+            } else {
+                if (day === 5 && hours >= 16) {
+                    nextEventTime.setDate(nextEventTime.getDate() + 3);
+                    nextEventTime.setHours(8, 0, 0, 0);
+                } else if (day === 6) {
+                    nextEventTime.setDate(nextEventTime.getDate() + 2);
+                    nextEventTime.setHours(8, 0, 0, 0);
+                } else if (day === 0) {
+                    nextEventTime.setDate(nextEventTime.getDate() + 1);
+                    nextEventTime.setHours(8, 0, 0, 0);
+                } else if (hours >= 16) {
+                    nextEventTime.setDate(nextEventTime.getDate() + 1);
+                    nextEventTime.setHours(8, 0, 0, 0);
+                } else {
+                    nextEventTime.setHours(8, 0, 0, 0);
+                }
+                
+                let diffMs = nextEventTime - seychellesTime;
+                let diffHrs = Math.floor(diffMs / (1000 * 60 * 60));
+                let diffMins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+                
+                let timeStr = "";
+                if (diffHrs > 0) timeStr += `${diffHrs} hour${diffHrs > 1 ? 's' : ''} `;
+                if (diffMins > 0 || diffHrs === 0) timeStr += `${diffMins} minute${diffMins !== 1 ? 's' : ''}`;
+                
+                let textEN = `Currently closed. Opens in ${timeStr.trim()}.`;
+                let textFR = `Actuellement fermé. Ouvre dans ${timeStr.trim().replace('hours','heures').replace('hour','heure').replace('minutes','minutes').replace('minute','minute')}.`; 
+                
+                statusContainer.innerHTML = `<div class="live-status-text closed" style="color: #ff6b6b;">${currentLang === 'en' ? textEN : textFR}</div>`;
+            }
+        }
+        
+        updateLiveStatus();
+        setInterval(updateLiveStatus, 60000);
+    </script>
+</body>
+</html>

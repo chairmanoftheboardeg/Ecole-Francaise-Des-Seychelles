@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academics & Pedagogy | Ecole Française des Seychelles</title>
+    
+    <link rel="icon" href="https://jobo.sc/wp-content/uploads/2019/08/EFS_Logo_270px-200x200.png" type="image/png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* --- BRAND VARIABLES --- */
+        :root {
+            --efs-blue: #003366; 
+            --efs-red: #cc0000;
+            --efs-light-blue: #e6f0fa;
+            --bg-white: #ffffff;
+            --text-dark: #1a202c;
+            --text-muted: #718096;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--efs-blue); }
+
+        /* --- LOADER --- */
+        #loader {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: var(--bg-white); display: flex; justify-content: center; align-items: center;
+            z-index: 9999; transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+        }
+        .spinner {
+            width: 50px; height: 50px; border: 5px solid var(--efs-light-blue);
+            border-top-color: var(--efs-red); border-radius: 50%; animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 5%; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px);
+            position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0, 51, 102, 0.08);
+        }
+        .logo img { height: 60px; transition: transform 0.3s ease; }
+        .logo:hover img { transform: scale(1.05); }
+        .nav-links { list-style: none; display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { color: var(--text-dark); text-decoration: none; font-size: 0.95rem; font-weight: 600; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--efs-red); }
+        .nav-actions { display: flex; align-items: center; gap: 1.2rem; }
+        .nav-socials a { color: var(--efs-blue); font-size: 1.2rem; transition: color 0.3s; }
+        .nav-socials a:hover { color: var(--efs-red); }
+        .btn-pronote {
+            background: var(--efs-blue); color: var(--bg-white); padding: 0.6rem 1.5rem; border-radius: 4px;
+            text-decoration: none; font-weight: 700; transition: all 0.3s;
+        }
+        .btn-pronote:hover { background: var(--efs-red); transform: translateY(-2px); }
+        .btn-lang {
+            background: none; border: 2px solid var(--efs-blue); color: var(--efs-blue); padding: 0.4rem 0.8rem;
+            border-radius: 4px; font-weight: 700; cursor: pointer; transition: all 0.3s;
+        }
+        .btn-lang:hover { background: var(--efs-blue); color: var(--bg-white); }
+
+        /* --- PAGE HERO --- */
+        .page-hero {
+            position: relative; height: 60vh; min-height: 400px;
+            background-image: linear-gradient(rgba(0, 51, 102, 0.85), rgba(0, 51, 102, 0.7)), url('https://scontent.fsez2-1.fna.fbcdn.net/v/t39.30808-6/515615305_1358242679642939_8353032705381746604_n.jpg?stp=dst-jpg_s720x720_tt6&_nc_cat=106&ccb=1-7&_nc_sid=13d280&_nc_ohc=VQ3zeMEoKzsQ7kNvwH_Y8-U&_nc_oc=AdlG14ngCIXAsZg4Tf6DcGZoiGHpScCd5f_gZQLgdZgfhgNN5_vXcFMrl3NKjBCtOOA&_nc_zt=23&_nc_ht=scontent.fsez2-1.fna&_nc_gid=P5wiweMhUpnp6j26qwAmiw&_nc_ss=8&oh=00_AfztGdWO2duji2VCzzPcKGMJ0E3G-Cw5h-Ou7kFhaxu01w&oe=69BCEF39');
+            background-size: cover; background-position: center 20%;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            padding: 0 5%; margin-top: 80px; 
+        }
+        .page-hero h1 { color: var(--bg-white); font-size: 3.5rem; margin-bottom: 1rem; animation: fadeInUp 1s ease-out; }
+        .page-hero p { color: rgba(255,255,255,0.9); font-size: 1.2rem; max-width: 700px; font-family: 'Inter', sans-serif; animation: fadeInUp 1s ease-out 0.2s both; }
+
+        /* --- SECTION STYLING --- */
+        .content-section { padding: 5rem 5%; max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 3.5rem; }
+        .section-header h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .section-header p { color: var(--text-muted); font-size: 1.1rem; max-width: 800px; margin: 0 auto; }
+
+        /* --- DAILY SCHEDULE --- */
+        .schedule-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-bottom: 2rem; }
+        .schedule-card { background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 8px; padding: 2rem; text-align: center; transition: transform 0.3s; border-top: 4px solid var(--efs-blue); }
+        .schedule-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); border-top-color: var(--efs-red); }
+        .schedule-card i { font-size: 2rem; color: var(--efs-blue); margin-bottom: 1rem; }
+        .schedule-card h3 { font-family: 'Inter', sans-serif; font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--text-dark); }
+        .schedule-card .time { font-size: 1.2rem; font-weight: 800; color: var(--efs-red); margin-bottom: 0.5rem; }
+        .schedule-card p { font-size: 0.9rem; color: var(--text-muted); }
+        
+        .wednesday-note { background: var(--efs-light-blue); padding: 1.5rem; border-radius: 8px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 15px; }
+        .wednesday-note i { color: var(--efs-red); font-size: 1.5rem; }
+        .wednesday-note p { font-size: 1rem; color: var(--text-dark); font-weight: 600; margin: 0; }
+
+        /* --- CNED & LANGUAGES (2 COLUMN) --- */
+        .split-section { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; background: var(--bg-white); padding: 5rem 5%; border-top: 1px solid var(--border-color); }
+        .text-block h3 { font-size: 2rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 15px; }
+        .text-block p { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.7; }
+        
+        .feature-list { list-style: none; margin-top: 2rem; }
+        .feature-list li { display: flex; gap: 15px; margin-bottom: 1.5rem; align-items: flex-start; }
+        .feature-list li i { color: var(--bg-white); background: var(--efs-red); width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; flex-shrink: 0; font-size: 0.9rem;}
+        .feature-list li div h4 { font-family: 'Inter', sans-serif; font-size: 1.1rem; color: var(--text-dark); margin-bottom: 0.3rem; }
+        .feature-list li div p { font-size: 0.95rem; margin-bottom: 0; }
+
+        /* --- EXAM SUCCESS STATS --- */
+        .success-section { background: var(--efs-blue); color: var(--bg-white); padding: 5rem 5%; text-align: center; }
+        .success-section h2 { color: var(--bg-white); font-size: 2.5rem; margin-bottom: 3rem; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+        .stat-card { background: rgba(255,255,255,0.1); padding: 2.5rem 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); }
+        .stat-card .number { font-size: 3.5rem; font-weight: 800; color: var(--bg-white); line-height: 1; margin-bottom: 0.5rem; font-family: 'Inter', sans-serif;}
+        .stat-card .label { font-size: 1.1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #a3bfda; margin-bottom: 0.5rem; }
+        .stat-card p { font-size: 0.85rem; color: rgba(255,255,255,0.8); }
+
+        /* --- ORIENTATION & PARCOURSUP --- */
+        .orientation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+        .orientation-card { background: var(--bg-white); border-radius: 12px; padding: 3rem; box-shadow: 0 10px 30px rgba(0,0,0,0.06); border-top: 5px solid var(--efs-blue); }
+        .orientation-card.red-top { border-top-color: var(--efs-red); }
+        .orientation-card h3 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 1.5rem; color: var(--text-dark); }
+        .orientation-card p { font-size: 1rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.7; }
+        
+        .timeline { border-left: 3px solid var(--efs-light-blue); padding-left: 20px; margin-top: 2rem; margin-bottom: 2rem; }
+        .timeline-item { position: relative; margin-bottom: 1.5rem; }
+        .timeline-item::before { content: ''; position: absolute; left: -27px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--efs-blue); border: 3px solid var(--bg-white); }
+        .timeline-item strong { color: var(--efs-blue); display: block; margin-bottom: 0.2rem; }
+        .timeline-item span { font-size: 0.9rem; color: var(--text-dark); }
+
+        .btn-external { display: inline-flex; align-items: center; gap: 10px; background: var(--efs-blue); color: var(--bg-white); padding: 0.8rem 1.5rem; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: background 0.3s; margin-top: 1rem;}
+        .btn-external:hover { background: var(--efs-red); }
+
+        /* --- MEGA FOOTER (Imported) --- */
+        .site-footer { background-color: var(--efs-blue); color: var(--bg-white); padding: 4rem 5% 2rem; }
+        .footer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4rem; max-width: 1200px; margin: 0 auto 3rem; }
+        .footer-logo img { height: 70px; margin-bottom: 1.5rem; background: var(--bg-white); padding: 10px; border-radius: 8px;}
+        .footer-socials { display: flex; gap: 15px; margin-top: 1.5rem; }
+        .footer-socials a { display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; background: rgba(255,255,255,0.1); color: var(--bg-white); border-radius: 50%; transition: all 0.3s; font-size: 1.2rem; }
+        .footer-socials a:hover { background: var(--efs-red); transform: translateY(-3px); }
+        .footer-links h4 { color: var(--bg-white); margin-bottom: 1.5rem; font-family: 'Inter', sans-serif; font-size: 1.1rem; border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; display: inline-block;}
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 0.8rem; font-size: 0.9rem; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--bg-white); }
+        .contact-box p { font-size: 0.9rem; color: rgba(255,255,255,0.8); margin-bottom: 0.8rem; display: flex; gap: 10px; align-items: flex-start; }
+        .contact-box i { color: var(--efs-red); margin-top: 3px; }
+        .hours-box { background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem; border: 1px solid rgba(255,255,255,0.05); }
+        .hours-box h5 { font-size: 1rem; margin-bottom: 0.8rem; color: var(--bg-white); }
+        .live-status-text { font-size: 0.95rem; font-weight: 600; color: #a3bfda; margin-bottom: 0.8rem; line-height: 1.4; }
+        .live-status-text.closed { color: #ff6b6b; }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); font-size: 0.9rem; }
+        .creator-link { color: var(--bg-white); font-weight: 700; text-decoration: none; transition: color 0.3s; }
+        .creator-link:hover { color: var(--efs-red); }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 900px) {
+            .split-section, .orientation-grid, .footer-grid { grid-template-columns: 1fr; }
+            .schedule-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .nav-links { display: none; }
+            .page-hero h1 { font-size: 2.8rem; }
+        }
+        @media (max-width: 600px) {
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader"><div class="spinner"></div></div>
+
+    <nav class="navbar">
+        <a href="/" class="logo"><img src="https://jobo.sc/wp-content/uploads/2019/08/EFS_Logo_270px-200x200.png" alt="EFS Logo"></a>
+        <ul class="nav-links">
+            <li><a href="/about/" data-en="About Us" data-fr="À Propos">About Us</a></li>
+            <li><a href="/academics/" class="active" data-en="Academics" data-fr="Scolarité">Academics</a></li>
+            <li><a href="/admissions/" data-en="Admissions" data-fr="Inscriptions">Admissions</a></li>
+            <li><a href="/careers/" data-en="Careers" data-fr="Recrutement">Careers</a></li>
+            <li><a href="/contact/" data-en="Contact" data-fr="Contact">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <div class="nav-socials">
+                <a href="https://www.facebook.com/ecolefrancaiseseychelles" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.instagram.com/ecolefrancaiseseychelles/" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+            <button id="langToggle" class="btn-lang">FR</button>
+            <a href="https://3980001n.index-education.net/pronote/" target="_blank" class="btn-pronote">Pronote</a>
+        </div>
+    </nav>
+
+    <header class="page-hero">
+        <div>
+            <h1 data-en="Academic Excellence" data-fr="L'Excellence Académique">Academic Excellence</h1>
+            <p data-en="Shaping the leaders of tomorrow through a rigorous, bilingual, and internationally recognized curriculum." data-fr="Former les leaders de demain grâce à un programme rigoureux, bilingue et internationalement reconnu.">Shaping the leaders of tomorrow through a rigorous, bilingual, and internationally recognized curriculum.</p>
+        </div>
+    </header>
+
+    <section class="content-section">
+        <div class="section-header">
+            <h2 data-en="The Daily Schedule" data-fr="Le Rythme Scolaire">The Daily Schedule</h2>
+            <p data-en="A structured environment designed to optimize learning and student well-being." data-fr="Un environnement structuré conçu pour optimiser l'apprentissage et le bien-être des élèves.">A structured environment designed to optimize learning and student well-being.</p>
+        </div>
+
+        <div class="schedule-grid">
+            <div class="schedule-card">
+                <i class="fa-solid fa-shapes"></i>
+                <h3 data-en="Preschool" data-fr="Maternelle">Preschool</h3>
+                <div class="time">8:00 AM – 2:00 PM</div>
+                <p data-en="(Closing times may vary slightly between 1:30 PM and 2:30 PM)" data-fr="(L'heure de fin peut varier légèrement entre 13h30 et 14h30)">(Closing times may vary slightly between 1:30 PM and 2:30 PM)</p>
+            </div>
+            <div class="schedule-card">
+                <i class="fa-solid fa-book-open-reader"></i>
+                <h3 data-en="Elementary" data-fr="Primaire">Elementary</h3>
+                <div class="time">7:30 AM – 2:30 PM</div>
+                <p data-en="Standard operations begin between 7:30 AM and 8:00 AM." data-fr="Les cours débutent généralement entre 07h30 et 08h00.">Standard operations begin between 7:30 AM and 8:00 AM.</p>
+            </div>
+            <div class="schedule-card">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <h3 data-en="Middle & High School" data-fr="Collège & Lycée">Middle & High School</h3>
+                <div class="time">8:00 AM – 4:00 PM</div>
+                <p data-en="(Depending on the schedule, students may finish at 12:00, 1:00, 2:00, or 3:00 PM)" data-fr="(Selon l'emploi du temps, les élèves peuvent terminer à 12h, 13h, 14h ou 15h)">(Depending on the schedule, students may finish at 12:00, 1:00, 2:00, or 3:00 PM)</p>
+            </div>
+        </div>
+
+        <div class="wednesday-note">
+            <i class="fa-solid fa-clock"></i>
+            <p data-en="Note: On Wednesdays, all regular classes finish at 12:00 PM. Extracurricular activities run from 2:30 PM to 3:30 PM." data-fr="Note : Le mercredi, tous les cours se terminent à 12h00. Les activités extrascolaires ont lieu de 14h30 à 15h30.">Note: On Wednesdays, all regular classes finish at 12:00 PM. Extracurricular activities run from 2:30 PM to 3:30 PM.</p>
+        </div>
+    </section>
+
+    <section class="split-section">
+        
+        <div class="text-block">
+            <h3><i class="fa-solid fa-laptop-code" style="color: var(--efs-red);"></i> <span data-en="High School: The CNED Model" data-fr="Lycée : Le Modèle CNED">High School: The CNED Model</span></h3>
+            <p data-en="Our high school students (1ère and Terminale) benefit from a unique, highly structured distance-learning integration via CNED (Centre National d'Enseignement à Distance)." data-fr="Nos lycéens (1ère et Terminale) bénéficient d'une intégration unique et très structurée de l'enseignement à distance via le CNED.">Our high school students (1ère and Terminale) benefit from a unique, highly structured distance-learning integration via CNED (Centre National d'Enseignement à Distance).</p>
+            
+            <ul class="feature-list">
+                <li>
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <div>
+                        <h4 data-en="Structured Campus Life" data-fr="Vie de Campus Structurée">Structured Campus Life</h4>
+                        <p data-en="Students do not study at home. They have a clear, daily schedule and attend classes on campus just like traditional students." data-fr="Les élèves ne travaillent pas à la maison. Ils ont un emploi du temps quotidien clair et suivent les cours sur le campus.">Students do not study at home. They have a clear, daily schedule and attend classes on campus just like traditional students.</p>
+                    </div>
+                </li>
+                <li>
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                    <div>
+                        <h4 data-en="On-Site Teacher Support" data-fr="Soutien Enseignant sur Place">On-Site Teacher Support</h4>
+                        <p data-en="Our dedicated teachers assist students directly in the classroom, guiding them through the CNED materials and ensuring complete comprehension." data-fr="Nos professeurs dédiés assistent les élèves en classe, les guidant dans le matériel du CNED et assurant une compréhension totale.">Our dedicated teachers assist students directly in the classroom, guiding them through the CNED materials and ensuring complete comprehension.</p>
+                    </div>
+                </li>
+                <li>
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <div>
+                        <h4 data-en="Official French Correction" data-fr="Correction Officielle en France">Official French Correction</h4>
+                        <p data-en="All major assignments and exams are sent directly to CNED in France for official grading, ensuring absolute academic rigor." data-fr="Tous les devoirs et examens majeurs sont envoyés directement au CNED en France pour une correction officielle, garantissant une rigueur absolue.">All major assignments and exams are sent directly to CNED in France for official grading, ensuring absolute academic rigor.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="text-block">
+            <h3><i class="fa-solid fa-earth-americas" style="color: var(--efs-blue);"></i> <span data-en="The Language Pipeline" data-fr="Le Parcours Linguistique">The Language Pipeline</span></h3>
+            <p data-en="At EFS, language is not just a subject; it is the foundation of global citizenship. We offer intensive language tracks designed to yield official international certifications." data-fr="À l'EFS, la langue n'est pas qu'une matière ; c'est le fondement de la citoyenneté mondiale. Nous proposons des parcours intensifs préparant aux certifications internationales.">At EFS, language is not just a subject; it is the foundation of global citizenship. We offer intensive language tracks designed to yield official international certifications.</p>
+
+            <ul class="feature-list">
+                <li>
+                    <i class="fa-solid fa-language" style="background: var(--efs-blue);"></i>
+                    <div>
+                        <h4 data-en="The IGCSE English Track" data-fr="Le Parcours Anglais IGCSE">The IGCSE English Track</h4>
+                        <p data-en="English instruction begins early. In secondary school, students enter the intensive IGCSE pipeline. They prepare for the <strong>IGCSE English as a Second Language</strong> exam in 3ème, and advance to the <strong>IGCSE English as a First Language</strong> exam by Terminale." data-fr="L'enseignement de l'anglais commence tôt. Au secondaire, les élèves intègrent le parcours IGCSE. Ils préparent l'examen <strong>IGCSE English as a Second Language</strong> en 3ème, puis le <strong>IGCSE English as a First Language</strong> en Terminale.">English instruction begins early. In secondary school, students enter the intensive IGCSE pipeline. They prepare for the <strong>IGCSE English as a Second Language</strong> exam in 3ème, and advance to the <strong>IGCSE English as a First Language</strong> exam by Terminale.</p>
+                    </div>
+                </li>
+                <li>
+                    <i class="fa-solid fa-comments" style="background: var(--efs-blue);"></i>
+                    <div>
+                        <h4 data-en="Spanish Integration" data-fr="Intégration de l'Espagnol">Spanish Integration</h4>
+                        <p data-en="Official Spanish language classes begin in 6ème (Middle School), though primary students have access to Spanish via extracurricular activities." data-fr="Les cours officiels d'espagnol commencent en 6ème, bien que les élèves du primaire y aient accès via les activités extrascolaires.">Official Spanish language classes begin in 6ème (Middle School), though primary students have access to Spanish via extracurricular activities.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </section>
+
+    <section class="success-section">
+        <h2 data-en="A Tradition of Excellence" data-fr="Une Tradition d'Excellence">A Tradition of Excellence</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="number">100%</div>
+                <div class="label" data-en="French BAC Pass Rate" data-fr="Réussite au BAC Français">French BAC Pass Rate</div>
+                <p data-en="Consistent success rate over recent academic years." data-fr="Taux de réussite constant ces dernières années scolaires.">Consistent success rate over recent academic years.</p>
+            </div>
+            <div class="stat-card">
+                <div class="number">96%</div>
+                <div class="label" data-en="DNB (Brevet) Pass Rate" data-fr="Réussite au DNB (Brevet)">DNB (Brevet) Pass Rate</div>
+                <p data-en="Outstanding performance in the Middle School national exam." data-fr="Excellente performance à l'examen national du collège.">Outstanding performance in the Middle School national exam.</p>
+            </div>
+            <div class="stat-card">
+                <div class="number">PIX</div>
+                <div class="label" data-en="Digital Certification" data-fr="Certification Numérique">Digital Certification</div>
+                <p data-en="Official assessment of students' digital skills and competencies." data-fr="Évaluation officielle des compétences numériques des élèves.">Official assessment of students' digital skills and competencies.</p>
+            </div>
+            <div class="stat-card">
+                <div class="number">ASSR</div>
+                <div class="label" data-en="Road Safety Certificate" data-fr="Attestation Sécurité Routière">Road Safety Certificate</div>
+                <p data-en="Mandatory safety training successfully completed by our students." data-fr="Formation obligatoire à la sécurité validée par nos élèves.">Mandatory safety training successfully completed by our students.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="section-header">
+            <h2 data-en="University Guidance & Orientation" data-fr="Orientation & Enseignement Supérieur">University Guidance & Orientation</h2>
+            <p data-en="We guide our students from the classroom to the world's top universities." data-fr="Nous accompagnons nos élèves de la salle de classe vers les meilleures universités mondiales.">We guide our students from the classroom to the world's top universities.</p>
+        </div>
+
+        <div class="orientation-grid">
+            
+            <div class="orientation-card">
+                <h3 data-en="The Career & Training Forum" data-fr="Le Forum des Métiers et Formations">The Career & Training Forum</h3>
+                <p data-en="Every year, EFS organizes a major Career and Training Forum. This is a highly anticipated event aimed at helping students discover diverse career paths and align them with their personal aspirations." data-fr="Chaque année, l’EFS organise un forum des métiers et des formations, un rendez-vous incontournable pour accompagner les élèves dans leur réflexion sur l’orientation et la découverte des secteurs.">Every year, EFS organizes a major Career and Training Forum. This is a highly anticipated event aimed at helping students discover diverse career paths and align them with their personal aspirations.</p>
+                <p data-en="The forum brings together professionals from engineering, law, health, finance, and the arts, alongside EFS Alumni and representatives from higher education institutions from France and around the globe." data-fr="Le forum réunit des professionnels (ingénierie, droit, santé, finance, arts...), des anciens élèves de l’EFS, ainsi que des représentants d’établissements d’enseignement supérieur internationaux.">The forum brings together professionals from engineering, law, health, finance, and the arts, alongside EFS Alumni and representatives from higher education institutions from France and around the globe.</p>
+                
+                <h4 style="margin-top: 2rem; color: var(--efs-blue); font-family: 'Inter', sans-serif;" data-en="Seychellois Scholarships" data-fr="Bourses d'Études (Seychellois)">Seychellois Scholarships</h4>
+                <p style="margin-bottom: 0.5rem; font-size: 0.9rem;" data-en="Explore scholarship opportunities available for Seychellois nationals via the ANHRD." data-fr="Découvrez les opportunités de bourses pour les citoyens Seychellois via l'ANHRD.">Explore scholarship opportunities available for Seychellois nationals via the ANHRD.</p>
+                <a href="https://www.anhrd.gov.sc/" target="_blank" class="btn-external"><i class="fa-solid fa-graduation-cap"></i> ANHRD Portal</a>
+            </div>
+
+            <div class="orientation-card red-top">
+                <h3 data-en="Parcoursup Integration" data-fr="L'Accompagnement Parcoursup">Parcoursup Integration</h3>
+                <p data-en="Parcoursup is the national platform for admission to the first year of higher education in France. Our pedagogical team provides intensive, individualized support to ensure every student secures their preferred university placement." data-fr="Parcoursup est la plateforme d’accès à l’enseignement supérieur en France. Notre équipe pédagogique offre un accompagnement individualisé pour garantir à chaque élève la meilleure orientation.">Parcoursup is the national platform for admission to the first year of higher education in France. Our pedagogical team provides intensive, individualized support to ensure every student secures their preferred university placement.</p>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <strong data-en="Personalized Interviews" data-fr="Entretiens Individualisés">Personalized Interviews</strong>
+                        <span data-en="1 interview in 2nde and 1ère. 2 comprehensive interviews in Terminale with the principal teachers and management." data-fr="1 entretien en seconde et première. 2 entretiens complets en terminale avec les professeurs principaux et la direction.">1 interview in 2nde and 1ère. 2 comprehensive interviews in Terminale with the principal teachers and management.</span>
+                    </div>
+                    <div class="timeline-item">
+                        <strong data-en="Application Assistance" data-fr="Aide au Dossier">Application Assistance</strong>
+                        <span data-en="Direct help in writing motivational letters (projets de formation motivés) and navigating the 21,000+ available courses." data-fr="Aide directe à la rédaction des projets de formation motivés et navigation parmi plus de 21 000 formations.">Direct help in writing motivational letters (projets de formation motivés) and navigating the 21,000+ available courses.</span>
+                    </div>
+                </div>
+
+                <a href="https://www.parcoursup.gouv.fr/" target="_blank" class="btn-external" style="background: var(--efs-red);"><i class="fa-solid fa-arrow-up-right-from-square"></i> Parcoursup.fr</a>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-grid">
+            
+            <div>
+                <div class="footer-logo"><img src="https://jobo.sc/wp-content/uploads/2019/08/EFS_Logo_270px-200x200.png" alt="EFS Logo"></div>
+                <p data-en="An official partner of the AEFE network, providing premium French education from kindergarten through high school." data-fr="Partenaire officiel du réseau AEFE, offrant un enseignement français de qualité de la maternelle au lycée." style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">An official partner of the AEFE network, providing premium French education from kindergarten through high school.</p>
+                <div class="footer-socials">
+                    <a href="https://www.facebook.com/ecolefrancaiseseychelles" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/ecolefrancaiseseychelles/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4 data-en="Institutional Links" data-fr="Liens Institutionnels">Institutional Links</h4>
+                <ul>
+                    <li><a href="https://aefe.gouv.fr/fr" target="_blank" data-en="AEFE Official Website" data-fr="Site Officiel AEFE">AEFE Official Website</a></li>
+                    <li><a href="https://lannuaire.service-public.gouv.fr/ambassades/9ea88ca7-34f1-4bcb-9357-e4816c46625d" target="_blank" data-en="Ambassade de France" data-fr="Ambassade de France">Ambassade de France</a></li>
+                    <li><a href="https://sc.diplomatie.gouv.fr/fr" target="_blank" data-en="Diplomatie (France in SC)" data-fr="La France aux Seychelles">Diplomatie (France in SC)</a></li>
+                    <li><a href="https://www.facebook.com/LaFranceauxSeychelles/" target="_blank"><i class="fa-brands fa-facebook"></i> Ambassade Facebook</a></li>
+                    <li><a href="/admin/" data-en="Staff Login" data-fr="Accès Personnel">Staff Login</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links contact-box">
+                <h4 data-en="Contact & Information" data-fr="Contact & Informations">Contact & Information</h4>
+                <p><i class="fa-solid fa-location-dot"></i> 788 BP, Riverside, MAHE, SEYCHELLES</p>
+                <p><i class="fa-solid fa-envelope"></i> secretaire@ecofrasey.com</p>
+                <p><i class="fa-solid fa-phone"></i> +248 432 22 10</p>
+                
+                <div class="hours-box">
+                    <h5 data-en="Campus Operations" data-fr="Opérations du Campus">Campus Operations</h5>
+                    <div id="live-status-container"></div>
+                    <p style="font-size: 0.75rem; font-style: italic; color: rgba(255,255,255,0.5);" data-en="Excludes public holidays. Please call before visiting." data-fr="Hors jours fériés. Veuillez appeler avant de vous déplacer.">Excludes public holidays. Please call before visiting.</p>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="footer-bottom">
+            © 2026 Ecole Française des Seychelles. <span data-en="All rights reserved." data-fr="Tous droits réservés.">All rights reserved.</span><br>
+            <span style="font-size: 0.8rem; margin-top: 10px; display: block;">Made by <a href="https://tyler.tylernicholasgroup.com" target="_blank" class="creator-link">Tyler Nicholas</a></span>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Loader Logic
+        window.addEventListener("load", () => {
+            setTimeout(() => {
+                document.getElementById("loader").style.opacity = "0";
+                setTimeout(() => document.getElementById("loader").style.visibility = "hidden", 600);
+            }, 500);
+        });
+
+        // 2. Cookie & Translation Logic
+        function getCookie(name) {
+            let matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
+            return matches ? decodeURIComponent(matches[1]) : undefined;
+        }
+
+        const translatableElements = document.querySelectorAll('[data-en][data-fr]');
+        const langToggleBtn = document.getElementById('langToggle');
+        
+        let currentLang = getCookie('efs_lang') || 'en';
+
+        function applyLanguage(lang) {
+            currentLang = lang;
+            document.cookie = `efs_lang=${lang}; path=/; max-age=31536000`; 
+            
+            langToggleBtn.innerText = lang === 'en' ? 'FR' : 'EN';
+            
+            translatableElements.forEach(el => {
+                el.innerText = el.getAttribute(`data-${lang}`);
+            });
+            
+            updateLiveStatus();
+        }
+
+        applyLanguage(currentLang);
+
+        langToggleBtn.addEventListener('click', () => {
+            applyLanguage(currentLang === 'en' ? 'fr' : 'en');
+        });
+
+        // 3. Live Text Countdown Engine
+        function updateLiveStatus() {
+            const now = new Date();
+            const seychellesTime = new Date(now.toLocaleString("en-US", {timeZone: "Indian/Mahe"}));
+            
+            const day = seychellesTime.getDay(); 
+            const hours = seychellesTime.getHours();
+            
+            const statusContainer = document.getElementById('live-status-container');
+            
+            let isOpen = (day >= 1 && day <= 5) && (hours >= 8 && hours < 16);
+            let nextEventTime = new Date(seychellesTime);
+            
+            if (isOpen) {
+                nextEventTime.setHours(16, 0, 0, 0);
+                
+                let diffMs = nextEventTime - seychellesTime;
+                let diffHrs = Math.floor(diffMs / (1000 * 60 * 60));
+                let diffMins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+                
+                let timeStr = "";
+                if (diffHrs > 0) timeStr += `${diffHrs} hour${diffHrs > 1 ? 's' : ''} `;
+                if (diffMins > 0 || diffHrs === 0) timeStr += `${diffMins} minute${diffMins !== 1 ? 's' : ''}`;
+                
+                let textEN = `Currently open. Closes in ${timeStr.trim()}.`;
+                let textFR = `Actuellement ouvert. Ferme dans ${timeStr.trim().replace('hours','heures').replace('hour','heure').replace('minutes','minutes').replace('minute','minute')}.`;
+                
+                statusContainer.innerHTML = `<div class="live-status-text">${currentLang === 'en' ? textEN : textFR}</div>`;
+            } else {
+                if (day === 5 && hours >= 16) {
+                    nextEventTime.setDate(nextEventTime.getDate() + 3);
+                    nextEventTime.setHours(8, 0, 0, 0);
+                } else if (day === 6) {
+                    nextEventTime.setDate(nextEventTime.getDate() + 2);
+                    nextEventTime.setHours(8, 0, 0, 0);
+                } else if (day === 0) {
+                    nextEventTime.setDate(nextEventTime.getDate() + 1);
+                    nextEventTime.setHours(8, 0, 0, 0);
+                } else if (hours >= 16) {
+                    nextEventTime.setDate(nextEventTime.getDate() + 1);
+                    nextEventTime.setHours(8, 0, 0, 0);
+                } else {
+                    nextEventTime.setHours(8, 0, 0, 0);
+                }
+                
+                let diffMs = nextEventTime - seychellesTime;
+                let diffHrs = Math.floor(diffMs / (1000 * 60 * 60));
+                let diffMins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+                
+                let timeStr = "";
+                if (diffHrs > 0) timeStr += `${diffHrs} hour${diffHrs > 1 ? 's' : ''} `;
+                if (diffMins > 0 || diffHrs === 0) timeStr += `${diffMins} minute${diffMins !== 1 ? 's' : ''}`;
+                
+                let textEN = `Currently closed. Opens in ${timeStr.trim()}.`;
+                let textFR = `Actuellement fermé. Ouvre dans ${timeStr.trim().replace('hours','heures').replace('hour','heure').replace('minutes','minutes').replace('minute','minute')}.`; 
+                
+                statusContainer.innerHTML = `<div class="live-status-text closed" style="color: #ff6b6b;">${currentLang === 'en' ? textEN : textFR}</div>`;
+            }
+        }
+        
+        updateLiveStatus();
+        setInterval(updateLiveStatus, 60000);
+    </script>
+</body>
+</html>
